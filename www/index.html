@@ -31,9 +31,12 @@
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
 
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/f7material/framework7.material.min.css">
+    <link rel="stylesheet" href="css/f7material/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
 </head>
 
-<body>
+<body class="theme-red layout-white" >
     <!-- Status bar overlay for full screen mode (PhoneGap) -->
     <div class="statusbar-overlay"></div>
 
@@ -54,7 +57,7 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Awesome App</div>
+                    <div class="center sliding">Taquería Chacon</div>
                     <div class="right">
                         <!--
                           Right link contains only icon - additional "icon-only" class
@@ -72,26 +75,79 @@
                     <div class="page-content">
                         <div class="content-block">
                             <p>Page content goes here</p>
-                            <!-- Link to another page -->
-                            <a href="about.html">About app</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Bottom Toolbar-->
-            <div class="toolbar">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
-                </div>
-            </div>
-        </div>
-    </div>
+                           
+                    
 
+                            <!-- Login Screen -->
+                            <div class="login-screen modal-in">
+                                <!-- Default view-page layout -->
+                                <div class="view">
+                                  <div class="page">
+                                    <!-- page-content has additional login-screen content -->
+                                    <div class="page-content login-screen-content">
+                                      
+                                        <div class="row">
+                                              <div class="col-10"> </div>
+                                              <div class="col-50">
+                                                <img src="img/logo.png" alt="logo" style="    width: 100%;margin-top: 15px;margin-bottom: 10px;">
+                                              </div>
+                                              <div class="col-10"> </div>
+                                       </div>
+
+                                      <!-- Login form -->
+                                      <form>
+                                        <div class="list-block">
+                                          <ul>
+                                            <li class="item-content">
+                                              <div class="item-inner">
+                                                <div class="item-title label">Correo</div>
+                                                <div class="item-input">
+                                                  <input type="email" name="email" placeholder="Correo electronico">
+                                                </div>
+                                              </div>
+                                            </li>
+                                            <li class="item-content">
+                                              <div class="item-inner">
+                                                <div class="item-title label">Contraseña</div>
+                                                <div class="item-input">
+                                                  <input type="password" name="password" placeholder="Contraseña">
+                                                </div>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="list-block">
+                                            <div class="row">
+                                              <div class="col-50">
+                                                <a href="register.html" class="button button-fill button-raised ">Registrarme</a>
+                                              </div>
+                                              <div class="col-50">
+                                                <a href="#" class="button button-fill button-raised ">Ingresar</a>
+                                              </div>
+                                            </div>
+                                          <div class="list-block-label">Gracias por preferirnos</div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- End Login Screen -->
+
+
+
+                        </div> <!-- End Content-block -->
+                    </div> <!-- End Page Content -->
+                </div> <!-- End clas page -->
+            </div><!-- End pages navbar-through toolbar-through -->
+        </div><!-- end view view-main -->
+    </div> <!-- views -->
+
+    <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+
 </body>
 
 </html>
