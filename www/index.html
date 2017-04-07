@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -20,12 +20,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Your app title -->
-    <title>My App</title>
-
-    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
-        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
-     -->
+    <!-- Titulo de la app -->
+    <title>Taquería Chacón</title>
 
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
@@ -37,11 +33,13 @@
 </head>
 
 <body class="theme-red layout-white" >
+
     <!-- Status bar overlay for full screen mode (PhoneGap) -->
     <div class="statusbar-overlay"></div>
 
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
+
     <!-- Left panel with reveal effect-->
     <div class="panel panel-left panel-reveal">
         <div class="content-block">
@@ -53,6 +51,7 @@
     <div class="views">
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
+
             <!-- Top Navbar-->
             <div class="navbar">
                 <div class="navbar-inner">
@@ -140,7 +139,9 @@
                     </div> <!-- End Page Content -->
                 </div> <!-- End clas page -->
             </div><!-- End pages navbar-through toolbar-through -->
+
         </div><!-- end view view-main -->
+        
     </div> <!-- views -->
 
     <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>

@@ -1,6 +1,6 @@
-<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+<!-- No es necesario cargar todo , la plantilla es dinamica , se hace un parser con ajax. -->
 
-<!-- Top Navbar-->
+<!-- Nav bar-->
 <div class="navbar">
     <div class="navbar-inner">
         <div class="left">
@@ -14,97 +14,106 @@
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
         </div>
     </div>
-</div>
+</div><!-- End bar-->
+
 <div class="pages">
     <div data-page="register" class="page">
         <div class="page-content">
             <div class="content-block">
+
+            	<!--Titulo principal de la vista -->
                 <div class="content-block-title">Solicita tus pedidos y<br>gana premios!</div>
-				<div class="list-block">
-				  <ul>
-				    <!-- Text inputs -->
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">person</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Nombre</div>
-				          <div class="item-input">
-				            <input name="name" required="" type="text" placeholder="Tu nombre">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">email</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Correo</div>
-				          <div class="item-input">
-				            <input required="" type="email" placeholder="Correo Eléctronico">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">lock</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Contraseña</div>
-				          <div class="item-input">
-				            <input required="" type="password" placeholder="Contraseña">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">favorites</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Cédula</div>
-				          <div class="item-input">
-				            <input required="" type="text" placeholder="Cedula">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">phone_round</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Teléfono</div>
-				          <div class="item-input">
-				            <input required="" type="text" placeholder="Telefono">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">calendar</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Nacimiento</div>
-				          <div class="item-input">
-				            <input type="date" value="1988-01-01" placeholder="Nacimiento">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				    <li>
-				      <div class="item-content">
-				        <div class="item-media"><i class="icon f7-icons">graph_round</i></div>
-				        <div class="item-inner">
-				          <div class="item-title label">Domicilio</div>
-				          <div class="item-input">
-				            <input type="text" placeholder="Domicilio">
-				          </div>
-				        </div>
-				      </div>
-				    </li>
-				   
-				  </ul>
-				</div>
-				<button type="submit" class="button button-big button-fill">Almacenar </button>
-            </div>
-        </div>
-    </div>
-</div>
+
+                <!-- Formulario de registro -->
+                <form action="http://taqueriachacon.dev/api/cliente/registrar" id="registrarClienteForm" method="post" accept-charset="utf-8">
+					<div class="list-block">
+					  <ul>
+					    <!-- Text inputs -->
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">person</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Nombre</div>
+					          <div class="item-input">
+					            <input name="name" required="" type="text" placeholder="Tu nombre">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">email</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Correo</div>
+					          <div class="item-input">
+					            <input name="email" required="" type="email" placeholder="Correo Eléctronico">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">lock</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Contraseña</div>
+					          <div class="item-input">
+					            <input name="password" required="" type="password" placeholder="Contraseña">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">favorites</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Cédula</div>
+					          <div class="item-input">
+					            <input name="cedula" required="" type="text" placeholder="Cedula">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">phone_round</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Teléfono</div>
+					          <div class="item-input">
+					            <input name="telefono" required="" type="text" placeholder="Telefono">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">calendar</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Nacimiento</div>
+					          <div class="item-input">
+					            <input name="fecha_nacimiento" type="date" value="1988-01-01" placeholder="Nacimiento">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					    <li>
+					      <div class="item-content">
+					        <div class="item-media"><i class="icon f7-icons">graph_round</i></div>
+					        <div class="item-inner">
+					          <div class="item-title label">Domicilio</div>
+					          <div class="item-input">
+					            <input name="domicilio" type="text" placeholder="Domicilio">
+					          </div>
+					        </div>
+					      </div>
+					    </li>
+					   
+					  </ul>
+					</div>
+					<button type="submit" class="button button-big button-fill">Almacenar </button>
+				</form>
+				<!-- End Formulario de registro -->
+
+            </div> <!-- End content-block -->
+        </div> <!-- End page-content -->
+    </div> <!-- End data page -->
+</div> <!-- End div page -->
