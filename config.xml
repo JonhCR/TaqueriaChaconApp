@@ -16,6 +16,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <access origin="http://demosolutionscrc.ga" />
         <preference name="android-minSdkVersion" value="14" />
         <allow-intent href="market:*" />
     </platform>

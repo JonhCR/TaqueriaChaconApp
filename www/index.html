@@ -10,7 +10,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+    <meta http-equiv="Content-Security-Policy" content="img-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval' ; media-src * " />
+
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -23,10 +24,6 @@
     <!-- Titulo de la app -->
     <title>Taquería Chacón</title>
 
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
-
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/f7material/framework7.material.min.css">
     <link rel="stylesheet" href="css/f7material/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
@@ -40,13 +37,6 @@
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
 
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-            <p>Left panel content goes here</p>
-        </div>
-    </div>
-
     <!-- Views -->
     <div class="views">
         <!-- Your main view, should have "view-main" class -->
@@ -55,84 +45,98 @@
             <!-- Top Navbar-->
             <div class="navbar">
                 <div class="navbar-inner">
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Taquería Chacon</div>
-                    <div class="right">
-                        <!--
-                          Right link contains only icon - additional "icon-only" class
-                          Additional "open-panel" class tells app to open panel when we click on this link
-                        -->
-                        <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                        <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                        <div class="center sliding"> <img src="img/logo.png" alt="logo" style="    height: 50px;width: 150px;margin-top: 15px;"></div>
+                        <div class="right">
                     </div>
                 </div>
             </div>
+
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-through toolbar-through">
                 <!-- Page, "data-page" contains page name -->
                 <div data-page="index" class="page">
-                    <!-- Scrollable page content -->
+
+                <style type="text/css" media="screen">
+                    .swiper-container {
+                      height: 100%;
+                    }
+                    .swiper-slide {
+                      background:#fff;
+                    }
+                    .swiper-slide span {
+                      text-align:center;
+                      display:block;
+                      margin:20px;
+                      font-size:21px;
+}
+                </style>        
+
+                  <div class="speed-dial">
+                        <a href="#" class="floating-button">
+                          <!-- First icon is visible when Speed Dial actions are closed -->
+                          <i class="f7-icons">add_round</i>
+                          <!-- Second icon is visible when Speed Dial actions are opened -->
+                          <i class="f7-icons">close_round</i>
+                        </a>
+                    
+                        <div class="speed-dial-buttons">
+                          
+                          <a href="#">
+                            <i class="f7-icons">calendar</i>
+                          </a>
+
+                          <a href="pedidos.html">
+                            <i class="f7-icons">bag</i>
+                          </a>
+
+
+
+                        </div>
+                  </div>
+             
                     <div class="page-content">
                         <div class="content-block">
-                            <p>Page content goes here</p>
-                           
-                    
+                                <div class="row">
+                                    <div class="col-60"></div>
+                                    <div class="col-40">
+                                        <a id="logout_btn" class="button button-raised" href="#" ><i class="f7-icons">logout</i> Salir</a>
+                                    </div>
+                                </div>
+                                
 
-                            <!-- Login Screen -->
-                            <div class="login-screen modal-in">
-                                <!-- Default view-page layout -->
-                                <div class="view">
-                                  <div class="page">
-                                    <!-- page-content has additional login-screen content -->
-                                    <div class="page-content login-screen-content">
-                                      
-                                        <div class="row">
-                                              <div class="col-10"> </div>
-                                              <div class="col-50">
-                                                <img src="img/logo.png" alt="logo" style="    width: 100%;margin-top: 15px;margin-bottom: 10px;">
-                                              </div>
-                                              <div class="col-10"> </div>
-                                       </div>
+                                <div class="card">
+                                  <div class="card-header"> 
+                                  <b> Bienvenido Jhon Moreira</b>
+                                  </div>
+                                  <div class="card-content">
+                                    <div class="card-content-inner">
+                                    <p>Tenemos estas promociones para ti :</p>
+                                         <!-- Slider -->
+                                      <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                          <div class="swiper-slide">
+                                              <img class="lazy lazy-fadeIn" style=" height: 100%;width: 100%;" src="img/promo1.jpg" alt="promo1">
+                                              <p style="color: #ad251f;font-weight: bolder;">
+                                                 BATIDOS 2 X 1(SOLO JUEVES EL MISMO SABOR)
+                                              </p>
+                                          </div>
+                                          <div class="swiper-slide">
+                                              <img class="lazy lazy-fadeIn" style=" height: 100%;width: 100%;" src="img/promo2.jpg" alt="promo2">
+                                              <p style="color: #ad251f;font-weight: bolder;">
+                                                 Perro + Gallo (Martes y Miércoles)
+                                              </p>
+                                          </div>
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                      </div>
+                                    </div>
 
-                                      <!-- Login form -->
-                                      <form>
-                                        <div class="list-block">
-                                          <ul>
-                                            <li class="item-content">
-                                              <div class="item-inner">
-                                                <div class="item-title label">Correo</div>
-                                                <div class="item-input">
-                                                  <input type="email" name="email" placeholder="Correo electronico">
-                                                </div>
-                                              </div>
-                                            </li>
-                                            <li class="item-content">
-                                              <div class="item-inner">
-                                                <div class="item-title label">Contraseña</div>
-                                                <div class="item-input">
-                                                  <input type="password" name="password" placeholder="Contraseña">
-                                                </div>
-                                              </div>
-                                            </li>
-                                          </ul>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="row">
-                                              <div class="col-50">
-                                                <a href="register.html" class="button button-fill button-raised ">Registrarme</a>
-                                              </div>
-                                              <div class="col-50">
-                                                <a href="#" class="button button-fill button-raised ">Ingresar</a>
-                                              </div>
-                                            </div>
-                                          <div class="list-block-label">Gracias por preferirnos</div>
-                                        </div>
-                                      </form>
                                     </div>
                                   </div>
+                                    <div class="card-footer"><p style="    font-family: cursive;font-size: x-large;color: red;text-shadow: 0 0 4px #f3ff5b;-moz-text-shadow: 0 0 4px #000;-webkit-text-shadow: 0 0 4px #000;">El Chacolin Colorado</p></div>
                                 </div>
-                            </div>
-                            <!-- End Login Screen -->
-
+  
 
 
                         </div> <!-- End Content-block -->
@@ -141,13 +145,45 @@
             </div><!-- End pages navbar-through toolbar-through -->
 
         </div><!-- end view view-main -->
-        
+
     </div> <!-- views -->
 
     <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+
+    <script>
+    
+          document.addEventListener("backbutton", function(e){
+
+            //Previene cualquier acto consecuente al back button
+            e.preventDefault();
+            
+            /* Si los menús laterales están abiertos */
+            if ($$('.panel.active').length > 0) {
+                myApp.closePanel();
+                return;
+            }
+
+            /* Si hay un historial pero la vista es diferente del index o del login
+            Esto previene que al autenticarse puedan devolverse atras o al estar en login y 
+            hallan sido redirigidos no puedan regresar al index */
+            var view = myApp.getCurrentView();
+            if (!view) return;
+            if ( view.history.length > 1 && myApp.getCurrentView().activePage.name  != 'index' && 
+                 myApp.getCurrentView().activePage.name  != 'login') {
+                view.router.back();
+                return;
+            }
+
+            //Pregunta si desea cerrar la aplicacion
+            myApp.confirm('¿Salir de la aplicación?', 'Taquería Chacón', function () {
+                navigator.app.exitApp();
+              });
+
+        }, false);
+    </script>
 
 </body>
 

@@ -1,0 +1,92 @@
+<!-- No es necesario cargar todo , la plantilla es dinamica , se hace un parser con ajax. -->
+
+<!-- Nav bar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="back link">
+                <i class="icon icon-back"></i>
+                <span>Atrás</span>
+            </a>
+        </div>
+        <div class="center sliding">Pedidos</div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+        </div>
+    </div>
+</div><!-- End bar-->
+
+<div class="pages">
+
+    <div data-page="pedidos" class="page">
+	    <style type="text/css" media="screen">
+			.img-small img{
+				 height: 40px;
+			}
+		</style>
+        <div class="page-content">
+            <div class="content-block">
+
+			    <!-- This block will be inset only on tablets -->
+			    <div class="content-block tablet-inset">
+			      <div class="content-block-inner">
+			        <p style="font-family: cursive;font-size: x-large"><span style="font-weight: 600;color: #f44336;">1) Paso :</span> Selecciona las comidas , bebidas o postres que deseés pedir.</p>
+			      </div>
+			    </div>
+
+                <div class="list-block">
+				  <ul>
+					    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar comidas" data-picker-height="400px" >
+					        <!-- "multiple" attribute for multiple select-->
+					        <select id="selector_comidas" name="comidas" multiple>
+					        </select>
+					        <div class="item-content">
+					          <div class="item-inner">
+					            <div class="item-title">Comidas</div>
+					          </div>
+					        </div></a>
+					    </li>
+
+					    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar bebidas" data-picker-height="400px" >
+					        <!-- "multiple" attribute for multiple select-->
+					        <select id="selector_bebidas" name="car" multiple>
+					        </select>
+					        <div class="item-content">
+					          <div class="item-inner">
+					            <div class="item-title">Bebidas</div>
+					          </div>
+					        </div></a>
+					    </li>
+
+					    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar postres" data-picker-height="400px" >
+					        <!-- "multiple" attribute for multiple select-->
+					        <select id="selector_postres" name="car" multiple>
+					        </select>
+					        <div class="item-content">
+					          <div class="item-inner">
+					            <div class="item-title">Postres</div>
+					          </div>
+					        </div></a>
+					    </li>
+				  </ul>
+				</div>
+
+				<div class="row">
+				  <div class="col-50"></div>
+				  <div class="col-50">
+				    <button id="pedidos-step1" class="button  button-fill button-raised button-green"><i class="f7-icons">arrow_right_fill</i> Siguiente Paso </button>
+				  </div>
+				</div>  
+
+				<div class="row">
+                      <div class="col-10"> </div>
+                      <div class="col-50">
+                        <img src="img/chavo-torta.png" alt="logo" style="    width: 100%;margin-top: 15px;margin-bottom: 10px;height: 130px;">
+                      </div>
+                      <div class="col-10"> </div>
+               </div>
+
+            </div> <!-- End content-block -->
+        </div> <!-- End page-content -->
+    </div> <!-- End data page -->
+</div> <!-- End div page -->
