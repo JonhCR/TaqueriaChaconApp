@@ -182,6 +182,10 @@ myApp.onPageInit('pedidos', function (page) {
                 
     })();
 
+    $('.pedidos_cancelar').click(function(){
+        mainView.router.back();
+    });
+
     //Controles del swipper
     $('.pedidos_next').click(function(){
         swiPedidos.slideNext()
