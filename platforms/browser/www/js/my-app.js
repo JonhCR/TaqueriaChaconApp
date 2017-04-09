@@ -13,8 +13,9 @@ var $$ = Dom7;
 
 // Añade una vista
 var mainView = myApp.addView('.view-main', {
-    dynamicNavbar: true //Inicializa la vista con navbar dinamica
+    dynamicNavbar: false //Inicializa la vista sin navbar dinamica
 });
+
 
 // Maneja el evento de cordova de dispositivo listo
 $$(document).on('deviceready', function() {
@@ -37,11 +38,7 @@ $$(document).on('deviceready', function() {
 
 myApp.onPageInit('index' , function(page){
 
-    // Inicializa el swiper de imagenes dentro del index
-    var mySwiper = myApp.swiper('.swiper-container', {
-      pagination:'.swiper-pagination'
-    });
-
+    
     //Onclick de cerrar sesion
     //Invalida el token en el servidor
     //Destruye el token en storage del telefono
@@ -66,7 +63,7 @@ myApp.onPageInit('index' , function(page){
                 );
     });
 
-}).trigger();
+});
 
 //Vista de autenticacion 
 myApp.onPageInit('login' , function(page){
@@ -109,16 +106,35 @@ myApp.onPageInit('login' , function(page){
 //traerse los datos del cliente y el menu de la taqueria
 myApp.onPageInit('pedidos', function (page) {
 
+    var cliente = null ; // Conserva los datos del cliente
+
+    //Inicializador del swipper
+    var swiPedidos = new Swiper('.swip-pedidos', {
+        pagination: '.swiper-pagination',
+        effect: 'fade',
+        speed : 1000,
+        onlyExternal: true,
+    });
+
     //Carga la informacion del usuario
     //Llena los selects del menú
     (function(){ 
-        var user  = $.get( "http://demosolutionscrc.ga/api/cliente/pedidos?token="+storage.getItem('token'))
-                      .done(function(data) {
-                        console.log(data);
-                        
-                         var menus = data.menu;
 
-                         for ( i in menus) {       
+        $.ajax({
+          url: "http://demosolutionscrc.ga/api/cliente/pedidos?token="+storage.getItem('token'),
+          async: false,
+        })
+
+         .done(function(data) {
+           
+            var menus = data.menu;
+            cliente = data.cliente;
+            console.log(cliente);
+            $('#input_pedido_nombre').val(cliente.name);
+            $('#input_pedido_telefono').val(cliente.telefono);
+            $('#input_pedido_direccion').val(cliente.domicilio);
+
+            for ( i in menus) {       
 
                             if (menus[i].categoria == 'Comidas') {
 
@@ -156,24 +172,23 @@ myApp.onPageInit('pedidos', function (page) {
 
                             }
                              
-                           }
-                      })
-                      .fail(function() {
-                        myApp.alert('Error al cargar la informacion del usuario' , 'Error');
-                      });
+            } // End for
+           
+         })
+
+         .fail(function() {
+           myApp.alert('Error al cargar la informacion del usuario' , 'Fallo conexión');
+         });
+                
     })();
 
-    $('#pedidos-step1').click(function(){
-        mainView.router.loadPage("pedidos_step2.html");
+    //Controles del swipper
+    $('.pedidos_next').click(function(){
+        swiPedidos.slideNext()
     });
 
-}) // End vista de pedidos
-
-//Pedidos step 2 obtiene informacion de envio 
-myApp.onPageInit('pedidos_step2', function (page) {
-  
-    $('#pedidos-step2').click(function(){
-        mainView.router.loadPage("pedidos_step3.html");
+    $('.pedidos_back').click(function(){
+         swiPedidos.slidePrev()
     });
 
 }) // End vista de pedidos
