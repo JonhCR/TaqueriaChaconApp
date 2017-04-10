@@ -15,6 +15,11 @@
 				  background-position: center;
                   background-size: cover;
 			}
+		    .demo-card-header-pic .card-header {
+			    height: 40vw;
+			    background-size: cover;
+			    background-position: center;
+			 }
 		</style>
         <div class="page-content">
             <div class="content-block">
@@ -73,7 +78,7 @@
 							  	<button style="float: left;" class="button  button-fill button-raised button-green pedidos_cancelar"><i style="padding: 5px;" class="f7-icons">close_round</i> Cancelar</button>
 							  </div>
 							  <div class="col-50">
-							  	<button style="float: right;" class="button  button-fill button-raised button-green pedidos_next"><i style="padding: 5px;" class="f7-icons">arrow_right_fill</i> Continuar</button>
+							  	<button style="float: right;" class="button  button-fill button-raised button-green pedidos_verificar_entrega"><i style="padding: 5px;" class="f7-icons">arrow_right_fill</i> Continuar</button>
 							  </div>
 							</div>  
 
@@ -165,7 +170,7 @@
 							  <button style="float: left" class="button  button-fill button-raised button-green pedidos_back"><i style="padding: 5px;" class="f7-icons">arrow_left_fill</i> Volver</button>
 							  </div>
 							  <div class="col-50">
-							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_next"><i class="f7-icons">arrow_right_fill</i> Continuar</button>
+							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_listar_detalles"><i class="f7-icons">arrow_right_fill</i> Continuar</button>
 							  </div>
 							</div>  
 				      </div>
@@ -173,7 +178,42 @@
 
 				     <!--Step 3 -->
 				      <div class="swiper-slide">
-				      	
+
+				      		<div class="content-block-inner">
+						      	<p style="text-align: left;font-size: large"><b style="color: #f44336;">3) Paso :</b> Confirma tu solicitud.</p>
+						    </div>
+
+						    <div class="list-block">
+							 	<div class="card demo-card-header-pic">
+								  <div style="background-image:url(img/moto-chacon.png);background-size: contain;background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border"></div>
+								  <div class="card-content">
+								    <div class="card-content-inner">
+								      <p style="font-weight: 900;color: #9e9605;">Los detalles de tu pedido: </p>
+										    <div class="list-block" id="detalles_items">
+										      <ul>
+										      </ul>
+										    </div>
+									  <br>
+									  <p style="font-weight: 900;color: #f44336;">Voy a pagar con: </p>
+								    </div>
+								  </div>
+								  <div class="card-footer">
+								    <a href="#" class="button button-raised">Eféctivo</a>
+								    <a href="#" class="button button-raised">Tarjeta</a>
+								  </div>
+								</div>
+							</div>	
+
+							<div class="row">
+							  <div class="col-50">
+							  <button style="float: left" class="button  button-fill button-raised button-green pedidos_back"><i style="padding: 5px;" class="f7-icons">arrow_left_fill</i> Volver</button>
+							  </div>
+							  <div class="col-50">
+							    <button style="float: right" class="button  button-fill button-raised button-green "><i class="f7-icons">check_round</i> Procesar</button>
+							  </div>
+							</div>  
+
+							
 				      </div>
 				    </div>
 				    <!--Step 3 -->

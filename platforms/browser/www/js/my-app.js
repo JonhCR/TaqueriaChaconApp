@@ -4,7 +4,7 @@ var storage = window.localStorage;
 var myApp = new Framework7({
             material : true, //Activa el tema de material css en framework7
            // pushState: true, // El back button lo manejo manual , por eso comentado
-            modalButtonOk : 'Si' , // Ok button del modal
+            modalButtonOk : 'Ok' , // Ok button del modal
             modalButtonCancel : 'Cancelar', // Cancel buttom del modal
         });
 
@@ -114,6 +114,7 @@ myApp.onPageInit('pedidos', function (page) {
         effect: 'fade',
         speed : 1000,
         onlyExternal: true,
+        autoHeight : true,
     });
 
     //Carga la informacion del usuario
@@ -129,11 +130,6 @@ myApp.onPageInit('pedidos', function (page) {
            
             var menus = data.menu;
             cliente = data.cliente;
-            console.log(cliente);
-            $('#input_pedido_nombre').val(cliente.name);
-            $('#input_pedido_telefono').val(cliente.telefono);
-            $('#input_pedido_direccion').val(cliente.domicilio);
-
             for ( i in menus) {       
 
                             if (menus[i].categoria == 'Comidas') {
@@ -142,7 +138,8 @@ myApp.onPageInit('pedidos', function (page) {
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
                                 +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
-                                +" value='apple'>"
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
 
@@ -154,7 +151,8 @@ myApp.onPageInit('pedidos', function (page) {
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
                                 +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
-                                +" value='apple'>"
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
 
@@ -166,7 +164,8 @@ myApp.onPageInit('pedidos', function (page) {
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
                                 +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
-                                +" value='apple'>"
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
 
@@ -182,15 +181,90 @@ myApp.onPageInit('pedidos', function (page) {
                 
     })();
 
+    //Boton de cancelacion en el primer layout de pedidos
     $('.pedidos_cancelar').click(function(){
         mainView.router.back();
     });
 
-    //Controles del swipper
-    $('.pedidos_next').click(function(){
-        swiPedidos.slideNext()
+     //Etapa 2 de la solicitud de pedidos , valida que se seleccione almenos un item antes de continuar
+     //En caso de proseguir setea los datos del usuario
+    $('.pedidos_verificar_entrega').click(function(){
+
+        if( $('#selector_comidas')[0].selectedOptions.length == 0 &&
+            $('#selector_bebidas')[0].selectedOptions.length == 0 &&
+            $('#selector_postres')[0].selectedOptions.length == 0  ){
+            myApp.alert('Debes seleccionar almenos una comida , bebida o postre en tu pedido' , 'Campos Vacíos');
+        }else{
+            $('#input_pedido_nombre').val(cliente.name);
+            $('#input_pedido_telefono').val(cliente.telefono);
+            $('#input_pedido_direccion').val(cliente.domicilio);
+            swiPedidos.slideNext();
+        }
+       
     });
 
+    //Etapa 3 de la solicitud de pedidos , Verifica informacio de entrega 
+    //valida que los campos de telefono , nombre y direccion esten rellenos
+    //antes de continuar , seguidamente setea la informacion de compra al cliente
+    $('.pedidos_listar_detalles').click(function(){
+          if( $.trim( $('#input_pedido_nombre').val() ).length == 0 ||
+              $.trim( $('#input_pedido_telefono').val() ).length == 0 ||
+              $.trim( $('#input_pedido_direccion').val() ).length == 0 )
+          {
+            myApp.alert('Necesitamos almenos tres datos: tu nombre , telefono y direccion.' , 'Campos Vacíos');
+          }else{
+              
+              var total = 0;
+              $('#detalles_items ul li').remove();
+              for (var i = 0; i < $('#selector_comidas')[0].selectedOptions.length; i++) {
+                $("#detalles_items ul").append('<li class="item-content" >'
+                  +'<div class="item-media"><i class="f7-icons">play</i></div>'
+                  +'<div class="item-inner">'
+                  +'<div class="item-title">'+$('#selector_comidas')[0].selectedOptions[i].label+'</div>'
+                  +'<div class="item-after">₡ '+$('#selector_comidas')[0].selectedOptions[i].title+'</div>'
+                  +'</div>'
+                  +'</li>');
+                  total = total + parseFloat($('#selector_comidas')[0].selectedOptions[i].title);
+              }
+
+              for (var i = 0; i < $('#selector_bebidas')[0].selectedOptions.length; i++) {
+                $("#detalles_items ul").append('<li class="item-content" >'
+                  +'<div class="item-media"><i class="f7-icons">play</i></div>'
+                  +'<div class="item-inner">'
+                  +'<div class="item-title">'+$('#selector_bebidas')[0].selectedOptions[i].label+'</div>'
+                  +'<div class="item-after">₡ '+$('#selector_bebidas')[0].selectedOptions[i].title+'</div>'
+                  +'</div>'
+                  +'</li>');
+                total = total + parseFloat($('#selector_bebidas')[0].selectedOptions[i].title);
+              }
+
+              for (var i = 0; i < $('#selector_postres')[0].selectedOptions.length; i++) {
+                $("#detalles_items ul").append('<li class="item-content" >'
+                  +'<div class="item-media"><i class="f7-icons">play</i></div>'
+                  +'<div class="item-inner">'
+                  +'<div class="item-title">'+$('#selector_postres')[0].selectedOptions[i].label+'</div>'
+                  +'<div class="item-after">₡ '+$('#selector_postres')[0].selectedOptions[i].title+'</div>'
+                  +'</div>'
+                  +'</li>');
+                total = total + parseFloat($('#selector_postres')[0].selectedOptions[i].title);
+              }
+
+              $("#detalles_items ul").append('<li style="background-color: rgb(245, 247, 219);" class="item-content" >'
+                  +'<div class="item-media"><i class="f7-icons">bag</i></div>'
+                  +'<div class="item-inner">'
+                  +'<div class="item-title"></div>'
+                  +'<div style="color: #9e9605;font-weight: 800;" class="item-after">Total : ₡ '+total+'</div>'
+                  +'</div>'
+                  +'</li>');
+
+            //  
+
+            swiPedidos.slideNext();
+          }
+
+    });
+
+    //Controles del swipper back
     $('.pedidos_back').click(function(){
          swiPedidos.slidePrev()
     });
