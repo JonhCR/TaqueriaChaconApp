@@ -198,11 +198,152 @@
 								    </div>
 								  </div>
 								  <div class="card-footer">
-								    <a href="#" class="button button-raised">Eféctivo</a>
-								    <a href="#" class="button button-raised">Tarjeta</a>
+								  	<div class="list-block">
+									  <ul>
+									    <!-- Single radio input -->
+									    <li>
+									      <label class="label-radio item-content">
+									        <!-- Checked by default -->
+									        <input type="radio" name="payment_method" value="Efectivo" checked="checked">
+									        <div class="item-media">
+									          <i class="icon icon-form-radio"></i>
+									        </div>
+									        <div class="item-inner">
+									          <div class="item-title">Eféctivo</div>
+									        </div>
+									      </label>
+									    </li>
+									    <!-- Another radio input -->
+									    <li>
+									      <label class="label-radio item-content">
+									        <input type="radio" name="payment_method" value="Tarjeta">
+									        <div class="item-media">
+									          <i class="icon icon-form-radio"></i>
+									        </div>
+									        <div class="item-inner">
+									          <div class="item-title">Tarjeta</div>
+									        </div>
+									      </label>
+									    </li>
+									  </ul>
+									</div>    
 								  </div>
 								</div>
-							</div>	
+							</div>
+
+							<!-- Pago con efectivo -->
+							<div class="card card_efectivo">
+							  <div class="card-content">
+							    <div class="card-content-inner">
+							    	<p>¿Con Cuanto dinero pagarás? , este dato será usado para darte un vuelto si es necesario.</p>
+							    	<div class="list-block">
+	  									<ul>
+		  									<li>
+		  										<div class="item-content">
+										        	<div class="item-media"><i class="icon f7-icons">collection</i></div>
+											        <div class="item-inner">
+											          <div class="item-title label">Pagaré con</div>
+											          <div class="item-input">
+											            <input type="number" step="0.01" placeholder="Monto">
+											          </div>
+											        </div>
+										      	</div>
+		  									</li>
+	  									</ul>
+  									</div>
+							    </div>
+							  </div>
+							</div>
+							<!-- Pago con efectivo -->
+
+							<!-- Pago con tarjeta -->
+							<div class="card card_tarjeta"  style="display: none;">
+							  <div class="card-content">
+							    <div class="card-content-inner">
+							    	<p>Ingresa los detalles de pago . !Ojo, nunca te pediremos los numeros del reverso de tu tarjeta.</p>
+							    	<div class="list-block">
+	  									<ul>
+		  									<li>
+		  										<div class="item-content">
+										        	<div class="item-media"><i class="icon f7-icons">person</i></div>
+											        <div class="item-inner">Dueño
+											          <div class="item-title label"></div>
+											          <div class="item-input">
+											            <input id="input_dueño_nombre" type="text" placeholder="Dueño de la tarjeta">
+											          </div>
+											        </div>
+										      	</div>
+		  									</li>
+		  									<li>
+		  										<div class="item-content">
+										        	<div class="item-media"><i class="icon f7-icons">card</i></div>
+											        <div class="item-inner">Numero
+											          <div class="item-title label"></div>
+											          <div class="item-input">
+											            <input type="text" placeholder="Numero de la tarjeta">
+											          </div>
+											        </div>
+										      	</div>
+		  									</li>
+		  									 <li>
+											      <a href="#" class="item-link smart-select" data-open-in="picker">
+											        <!-- select -->
+											        <select name="expire_month">
+												       <option value="Enero">Enero </option>
+												       <option value="Febrero">Febrero </option>
+												       <option value="Marzo">Marzo </option>
+												       <option value="Abril">Abril </option>
+												       <option value="Mayo">Mayo </option>
+												       <option value="Junio">Junio </option>
+												       <option value="Julio">Julio </option>
+												       <option value="Agosto">Agosto </option>
+												       <option value="Septiembre">Septiembre </option>
+												       <option value="Octubre">Octubre </option>
+												       <option value="Noviembre">Noviembre </option>
+												       <option value="Diciembre">Diciembre </option>
+											        </select>
+											        <div class="item-content">
+											          <div class="item-inner">
+											            <div class="item-title">Mes vencimiento</div>
+											          </div>
+											        </div>
+											      </a>
+										    </li>
+										    <li>
+											      <a href="#" class="item-link smart-select" data-open-in="picker">
+											        <!-- select -->
+											        <select name="expire_month">
+												       <option value="2017">2017 </option>
+												       <option value="2018">2018 </option>
+												       <option value="2019">2019 </option>
+												       <option value="2020">2020 </option>
+												       <option value="2021">2021 </option>
+												       <option value="2022">2022 </option>
+												       <option value="2023">2023 </option>
+												       <option value="2024">2024 </option>
+												       <option value="2025">2025 </option>
+												       <option value="2026">2026 </option>
+												       <option value="2027">2027 </option>
+												       <option value="2028">2028 </option>
+												       <option value="2029">2029 </option>
+												       <option value="2030">2030 </option>
+											        </select>
+											        <div class="item-content">
+											          <div class="item-inner">
+											            <div class="item-title">Año vencimiento</div>
+											          </div>
+											        </div>
+											      </a>
+										    </li>
+		  									
+	  									</ul>
+  									</div>
+							    </div>
+							  </div>
+							</div>
+							<!-- Pago con tarjeta -->
+
+							<br>
 
 							<div class="row">
 							  <div class="col-50">

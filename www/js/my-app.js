@@ -214,8 +214,10 @@ myApp.onPageInit('pedidos', function (page) {
             myApp.alert('Necesitamos almenos tres datos: tu nombre , telefono y direccion.' , 'Campos Vacíos');
           }else{
               
-              var total = 0;
-              $('#detalles_items ul li').remove();
+              $('#input_dueño_nombre').val(cliente.name); //Setea al dueño de la tarjeta default
+              var total = 0;// total por pagar
+              $('#detalles_items ul li').remove();// Limpia las listas
+              
               for (var i = 0; i < $('#selector_comidas')[0].selectedOptions.length; i++) {
                 $("#detalles_items ul").append('<li class="item-content" >'
                   +'<div class="item-media"><i class="f7-icons">play</i></div>'
@@ -262,6 +264,19 @@ myApp.onPageInit('pedidos', function (page) {
             swiPedidos.slideNext();
           }
 
+    });
+
+    //Escucha del selector de los radios sobre el metodo de pago
+    $('input:radio[name="payment_method"]').change(
+    function(){
+        if ($(this).is(':checked') && $(this).val() == 'Tarjeta') {
+            $('.card_efectivo').css("display", "none");
+            $('.card_tarjeta').css("display", "block");
+        }else{
+            $('.card_efectivo').css("display", "block");
+            $('.card_tarjeta').css("display", "none");
+        }
+        swiPedidos.update();
     });
 
     //Controles del swipper back
