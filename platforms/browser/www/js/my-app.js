@@ -3,7 +3,7 @@ var storage = window.localStorage;
 // Inicializa la aplicacion
 var myApp = new Framework7({
             material : true, //Activa el tema de material css en framework7
-           // pushState: true, // El back button lo manejo manual , por eso comentado
+            pushState: false, // El back button lo manejo manual 
             modalButtonOk : 'Ok' , // Ok button del modal
             modalButtonCancel : 'Cancelar', // Cancel buttom del modal
         });
@@ -46,7 +46,7 @@ myApp.onPageInit('index' , function(page){
                 myApp.confirm('¿Cerrar Sesion?', 'El chacolin colorado', 
                   function () {
                       myApp.showPreloader('Finalizando...');
-                      $.get( "http://demosolutionscrc.ga/api/cliente/logout?token="+storage.getItem('token'))
+                      $.get( "http://www.taqueriachaconpavas.com/api/cliente/logout?token="+storage.getItem('token'))
                         .done(function(data) {
                           myApp.hidePreloader(); // Esconde el preloader
                           storage.setItem('token', null); // Elimina el token de autenticacion
@@ -63,7 +63,7 @@ myApp.onPageInit('index' , function(page){
                 );
     });
 
-});
+}).trigger();
 
 //Vista de autenticacion 
 myApp.onPageInit('login' , function(page){
@@ -126,7 +126,7 @@ myApp.onPageInit('pedidos', function (page) {
     (function(){ 
 
         $.ajax({
-          url: "http://demosolutionscrc.ga/api/cliente/pedidos?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/pedidos?token="+storage.getItem('token'),
           async: false,
         })
 
@@ -141,7 +141,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_comidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -154,7 +154,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_bebidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -167,7 +167,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_postres', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://demosolutionscrc.ga"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -403,7 +403,7 @@ function userAuthenticated(){
    var auth = false;
 
        $.ajax({
-          url: "http://demosolutionscrc.ga/api/cliente/check/auth?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/check/auth?token="+storage.getItem('token'),
           async: false,
         })
          .done(function(data) {

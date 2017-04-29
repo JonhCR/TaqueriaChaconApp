@@ -37,6 +37,23 @@
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
 
+    <!-- Right Panel with Cover effect -->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>
+          <img src="img/side.png" alt="logo" style="margin: 0 auto;display: block; margin-top: 15px;margin-bottom: 10px;">
+        </p>
+        <p><a class="close-panel" href="index.html" ><i class="f7-icons">home</i>&nbsp;<span> Inicio</span> </a></p>
+        <p><a class="close-panel" href="pedidos.html" ><span><i class="f7-icons">bag</i>&nbsp; Pedidos </span> </a></p>
+        <p><a class="close-panel" href="premios.html" ><span><i class="f7-icons">heart</i>&nbsp; Premios </span> </a></p>
+        <p><a class="close-panel" href="configuraciones" ><span><i class="f7-icons">settings</i>&nbsp; Configuración </span> </a></p>
+        <p><a href="#" class="close-panel"><span><i class="f7-icons">arrow_left</i>&nbsp; Atrás </span> </a></p>
+        <hr>
+        <p><a id="logout_btn" href="#" ><span><i class="f7-icons">logout</i>&nbsp; Cerrar Sesion </span> </a></p>
+        
+      </div>
+    </div>
+
     <!-- Views -->
     <div class="views">
         <!-- Your main view, should have "view-main" class -->
@@ -46,9 +63,10 @@
             <div class="navbar">
                 <div class="navbar-inner">
                         <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                        <div class="center sliding"> <img src="img/logo.png" alt="logo" style="    height: 50px;width: 150px;margin-top: 15px;"></div>
+                        <div class="left"> <img src="img/logo.png" alt="logo" style="    height: 50px;width: 150px;"></div>
                         <div class="right">
-                    </div>
+                         <a href="#" data-panel="right" class="link icon-only open-panel"> <i style="color: white;" class="f7-icons">bars</i> </a>
+                        </div>
                 </div>
             </div>
 
@@ -72,39 +90,20 @@
 }
                 </style>        
 
-                  <div class="speed-dial">
-                        <a href="#" class="floating-button">
-                          <!-- First icon is visible when Speed Dial actions are closed -->
-                          <i class="f7-icons">add_round</i>
-                          <!-- Second icon is visible when Speed Dial actions are opened -->
-                          <i class="f7-icons">close_round</i>
-                        </a>
-                    
-                        <div class="speed-dial-buttons">
-                          
-                          <a href="#">
-                            <i class="f7-icons">calendar</i>
-                          </a>
-
-                          <a href="pedidos.html">
-                            <i class="f7-icons">bag</i>
-                          </a>
-
-
-
-                        </div>
+                 <!-- Toolbar has additional "toolbar-bottom" class -->
+                  <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a href="index.html" class="link"><i class="f7-icons">home</i>&nbsp;<p>Inicio</p></a>
+                        <a href="pedidos.html" class="link"><i class="f7-icons">bag</i>&nbsp;<p>Pedido</p></a>
+                        <a href="#" class="link"><i class="f7-icons">heart</i>&nbsp;<p>Premios</p></a>
+                    </div>
                   </div>
-             
-                    <div class="page-content">
-                        <div class="content-block">
-                                <div class="row">
-                                    <div class="col-60"></div>
-                                    <div class="col-40">
-                                        <a id="logout_btn" class="button button-raised" href="#" ><i style="padding: 5px;" class="f7-icons">logout</i> Salir</a>
-                                    </div>
-                                </div>
-                                
 
+                    <div class="page-content">
+
+                        <div class="content-block">
+                                <!-- Index content -->
+                               
                                 <div class="card">
                                   <div class="card-header"> 
                                   <b> Bienvenido Jhon Moreira</b>
@@ -136,11 +135,13 @@
                                   </div>
                                     <div class="card-footer"><p style="    font-family: cursive;font-size: x-large;color: red;text-shadow: 0 0 4px #f3ff5b;-moz-text-shadow: 0 0 4px #000;-webkit-text-shadow: 0 0 4px #000;">El Chacolin Colorado</p></div>
                                 </div>
-  
 
+                                <!-- End Index content -->
 
                         </div> <!-- End Content-block -->
                     </div> <!-- End Page Content -->
+
+
                 </div> <!-- End clas page -->
             </div><!-- End pages navbar-through toolbar-through -->
 
@@ -152,9 +153,11 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
-
-    <script>
     
+    
+    <script>
+        
+
           document.addEventListener("backbutton", function(e){
 
             //Previene cualquier acto consecuente al back button
@@ -183,7 +186,7 @@
               });
 
         }, false);
-    </script>
+    </script> 
 
 </body>
 
