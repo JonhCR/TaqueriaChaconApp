@@ -46,7 +46,7 @@ myApp.onPageInit('index' , function(page){
                 myApp.confirm('¿Cerrar Sesion?', 'El chacolin colorado', 
                   function () {
                       myApp.showPreloader('Finalizando...');
-                      $.get( "http://www.taqueriachaconpavas.com/api/cliente/logout?token="+storage.getItem('token'))
+                      $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
                         .done(function(data) {
                           myApp.hidePreloader(); // Esconde el preloader
                           storage.setItem('token', null); // Elimina el token de autenticacion
@@ -109,8 +109,10 @@ myApp.onPageInit('pedidos', function (page) {
     var form_pedidos = new FormData();
     var menu_escogido = []; //Arreglo de objetos con los menus escogidos en este pedido
     var pedido_info_entrega = [];// Arreglo de objetos con la informacion de entrega
-    var cliente = null ; // Conserva los datos del cliente
+    var pedido_detalle_pago = [];// Arreglo de objetos con la informacion de pago
     var pedido_total // Mantiene el total de pagar en este pedido
+    var cliente = null ; // Conserva los datos del cliente
+    
 
     //Inicializador del swipper
     var swiPedidos = new Swiper('.swip-pedidos', {
@@ -121,12 +123,11 @@ myApp.onPageInit('pedidos', function (page) {
         autoHeight : true,
     });
 
-    //Carga la informacion del usuario
-    //Llena los selects del menú
+    //Carga obtiene al cliente logueado y carga los select con el menu disponible
     (function(){ 
 
         $.ajax({
-          url: "http://www.taqueriachaconpavas.com/api/cliente/pedidos?token="+storage.getItem('token'),
+          url: "http://taqueriachacon.dev/api/cliente/pedidos?token="+storage.getItem('token'),
           async: false,
         })
 
@@ -141,7 +142,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_comidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -154,7 +155,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_bebidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -167,7 +168,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_postres', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -219,22 +220,29 @@ myApp.onPageInit('pedidos', function (page) {
           }else{
 
               pedido_info_entrega = []; //Limpio la informacion de entrega para setear una nueva
-              menu_escogido = []; // Limpia el menu escogido
+              menu_escogido = []; // Limpia el menu escogido para setear el que ha escogido
+              
+              //Determina si el transporte fue seleccionado
+              var transporte = 0; // Asume que no fue chequeado
+              if ( $('#input_pedido_transporte').is(':checked') ){
+                transporte = 1;
+              }
 
+              //Serializa los datos de informacion de entrega
               pedido_info_entrega.push({
                                         nombre_cliente: $('#input_pedido_nombre').val(),
                                         telefono_cliente: $('#input_pedido_telefono').val(),
                                         direccion_cliente: $('#input_pedido_direccion').val(),
-                                        comentario_cliente : $('#input_pedido_comentario').val()
+                                        comentario_cliente : $('#input_pedido_comentario').val(),
+                                        servicio_express : transporte,
                                     });
               
               $('#input_dueño_nombre').val(cliente.name); //Setea al dueño de la tarjeta default
-
               pedido_total = 0;// restablece el total por pagar en el pedido
-
               
-              $('#detalles_items ul li').remove();// Limpia las listas
+              $('#detalles_items ul li').remove();// Limpia las listas de compras
 
+              //Muestra y serializa todos los elementos de menu escogidos
               for (var i = 0; i < $('#selector_comidas')[0].selectedOptions.length; i++) {
                 $("#detalles_items ul").append('<li class="item-content" >'
                   +'<div class="item-media"><i class="f7-icons">play</i></div>'
@@ -296,20 +304,81 @@ myApp.onPageInit('pedidos', function (page) {
                   +'</div>'
                   +'</li>');
 
-            
-            swiPedidos.slideNext();
+              swiPedidos.slideNext(); //Continua a la siguiente vista
           }
 
     });
-
+  
+    //Boton que finaliza y procesa el pedido
     $('.pedidos_procesar').click(function(){
 
-          form_pedidos.append("pedido_info_entrega" , pedido_info_entrega );
-          form_pedidos.append("menu_escogido", menu_escogido);
-          form_pedidos.append("pedido_total", pedido_total);
-          console.log(pedido_info_entrega);
-          console.log(menu_escogido);
-          console.log(pedido_total);
+      var payment_method = $('input[name=payment_method]:checked').val();
+      var procesar = false; //Estado de proceso para enviar la solicitud
+
+      //Reaccionan al tipo de pago , si es congruente cambian el estado de procesar = true
+      if(payment_method == 'Efectivo'){
+
+        if ( $('#con_cuanto_paga').val() <= 0 ) {
+          myApp.alert('El monto "pagaré con" no puede ser igual o menor a cero' , 'Pago Efectivo');
+        }else{
+          procesar = true;
+        }
+      }
+      else if(payment_method == 'Tarjeta'){
+
+        if ( $('#num_tarjeta').val() == '' || $('#input_dueño_nombre').val() == '' ) {
+          myApp.alert('Necesitamos los datos del documento' , 'Pago Tarjeta');
+        }else{
+          procesar = true;
+        }
+      }
+
+      //Si alguno de los metodos de pagos fue seteado correctamente proceso la solicitud
+      if (procesar) {
+
+        pedido_detalle_pago = []; // Limpio los detalles de pago anteriores
+
+        //Serializa los datos de informacion de pago
+        pedido_detalle_pago.push({
+            modo_pago: $('input[name=payment_method]:checked').val(),
+            con_cuanto_paga: $('#con_cuanto_paga').val(),
+            dueno_tarjeta: $('#input_dueño_nombre').val(),
+            num_tarjeta : $('#num_tarjeta').val(),
+            fecha_venc_tarjeta : $('#mes_venc_tarjeta').val()+'/'+$('#año_venc_tarjeta').val(),
+        });
+
+        url = "http://taqueriachacon.dev/api/cliente/pedidos?token="+storage.getItem('token');
+
+        //Muestra el preloader al inciar el proceso
+        myApp.showPreloader('Realizando pedido....');
+         
+        // Envía la solicitud al servidor , serializa a json los datos
+        var posting = $.post( url, {
+          'pedido_info_entrega' : pedido_info_entrega , 
+          'menu_escogido' : menu_escogido,
+          'pedido_total' : pedido_total,
+          'pedido_detalle_pago' : pedido_detalle_pago
+        } )
+       
+          //Si la respuesta del servidor fue satisfactoria
+         .done(function( data ) {
+
+          myApp.hidePreloader(); //Esconde el preloader
+        
+           //Si el estado fue exitoso (Registro completo)
+           myApp.alert("Hemos recibido tu pédido correctamente. Nos pondremos en contacto contigo a la mayor brevedad" , 'Pedido Completado');
+           //Lo traslada a login layout
+           mainView.router.loadPage("index.html");
+         
+        })//end .done
+
+         //Si la solicitud al servidor fue erronea
+        .fail(function() {
+          myApp.alert("Error al conectar con el servidor" , 'Servidor Error');
+          myApp.hidePreloader(); //Esconde el preloader
+        }); //End .fail
+
+      }// End Procesar
 
     });
 
@@ -403,7 +472,7 @@ function userAuthenticated(){
    var auth = false;
 
        $.ajax({
-          url: "http://www.taqueriachaconpavas.com/api/cliente/check/auth?token="+storage.getItem('token'),
+          url: "http://taqueriachacon.dev/api/cliente/check/auth?token="+storage.getItem('token'),
           async: false,
         })
          .done(function(data) {

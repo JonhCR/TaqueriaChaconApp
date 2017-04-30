@@ -110,7 +110,7 @@
 							          <div class="item-title label">¿Servicio Express?</div>
 							          <div class="item-input">
 							            <label class="label-switch">
-							              <input checked="" type="checkbox">
+							              <input  id="input_pedido_transporte" checked="" type="checkbox">
 							              <div class="checkbox"></div>
 							            </label>
 							          </div>
@@ -170,7 +170,7 @@
 							  <button style="float: left" class="button  button-fill button-raised button-green pedidos_back"><i style="padding: 5px;" class="f7-icons">arrow_left_fill</i> Volver</button>
 							  </div>
 							  <div class="col-50">
-							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_listar_detalles"><i class="f7-icons">arrow_right_fill</i> Continuar</button>
+							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_listar_detalles"><i style="padding: 5px;" class="f7-icons">arrow_right_fill</i> Continuar</button>
 							  </div>
 							</div>  
 				      </div>
@@ -204,7 +204,7 @@
 									    <li>
 									      <label class="label-radio item-content">
 									        <!-- Checked by default -->
-									        <input type="radio" name="payment_method" value="Efectivo" checked="checked">
+									        <input  type="radio" name="payment_method" value="Efectivo" checked="checked">
 									        <div class="item-media">
 									          <i class="icon icon-form-radio"></i>
 									        </div>
@@ -213,7 +213,6 @@
 									        </div>
 									      </label>
 									    </li>
-									    <!-- Another radio input -->
 									    <li>
 									      <label class="label-radio item-content">
 									        <input type="radio" name="payment_method" value="Tarjeta">
@@ -244,7 +243,7 @@
 											        <div class="item-inner">
 											          <div class="item-title label">Pagaré con</div>
 											          <div class="item-input">
-											            <input type="number" step="0.01" placeholder="Monto">
+											            <input value="0" id="con_cuanto_paga" type="number" step="0.01" placeholder="Monto">
 											          </div>
 											        </div>
 										      	</div>
@@ -280,7 +279,7 @@
 											        <div class="item-inner">Numero
 											          <div class="item-title label"></div>
 											          <div class="item-input">
-											            <input type="text" placeholder="Numero de la tarjeta">
+											            <input id="num_tarjeta" type="text" placeholder="Numero de la tarjeta">
 											          </div>
 											        </div>
 										      	</div>
@@ -288,19 +287,19 @@
 		  									 <li>
 											      <a href="#" class="item-link smart-select" data-open-in="picker">
 											        <!-- select -->
-											        <select name="expire_month">
-												       <option value="Enero">Enero </option>
-												       <option value="Febrero">Febrero </option>
-												       <option value="Marzo">Marzo </option>
-												       <option value="Abril">Abril </option>
-												       <option value="Mayo">Mayo </option>
-												       <option value="Junio">Junio </option>
-												       <option value="Julio">Julio </option>
-												       <option value="Agosto">Agosto </option>
-												       <option value="Septiembre">Septiembre </option>
-												       <option value="Octubre">Octubre </option>
-												       <option value="Noviembre">Noviembre </option>
-												       <option value="Diciembre">Diciembre </option>
+											        <select id="mes_venc_tarjeta" name="expire_month">
+												       <option value="01">Enero </option>
+												       <option value="02">Febrero </option>
+												       <option value="03">Marzo </option>
+												       <option value="04">Abril </option>
+												       <option value="05">Mayo </option>
+												       <option value="06">Junio </option>
+												       <option value="07">Julio </option>
+												       <option value="08">Agosto </option>
+												       <option value="09">Septiembre </option>
+												       <option value="10">Octubre </option>
+												       <option value="11">Noviembre </option>
+												       <option value="12">Diciembre </option>
 											        </select>
 											        <div class="item-content">
 											          <div class="item-inner">
@@ -312,7 +311,7 @@
 										    <li>
 											      <a href="#" class="item-link smart-select" data-open-in="picker">
 											        <!-- select -->
-											        <select name="expire_month">
+											        <select id="año_venc_tarjeta" name="expire_year">
 												       <option value="2017">2017 </option>
 												       <option value="2018">2018 </option>
 												       <option value="2019">2019 </option>
@@ -350,7 +349,7 @@
 							  <button style="float: left" class="button  button-fill button-raised button-green pedidos_back"><i style="padding: 5px;" class="f7-icons">arrow_left_fill</i> Volver</button>
 							  </div>
 							  <div class="col-50">
-							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_procesar"><i class="f7-icons">check_round</i> Procesar</button>
+							    <button style="float: right" class="button  button-fill button-raised button-green pedidos_procesar"><i style="padding: 5px;" class="f7-icons">check_round</i> Procesar</button>
 							  </div>
 							</div>  
 
