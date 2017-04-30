@@ -463,6 +463,90 @@ myApp.onPageInit('register', function (page) {
 }) // End vista de registro
 
 
+//Carga la vista para manejar configuraciones
+myApp.onPageInit('configuraciones', function (page) {
+
+  //Carga obtiene la informacion del cliente logueado 
+    (function(){ 
+
+        $.ajax({
+          url: "http://taqueriachacon.dev/api/cliente/configuraciones?token="+storage.getItem('token'),
+          async: false,
+        })
+
+         .done(function(data) {
+            var cliente = data;
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+            $('#cedula').val(data.cedula);
+            $('#telefono').val(data.telefono);
+            $('#fecha_nacimiento').val(data.fecha_nacimiento);
+            $('#domicilio').val(data.domicilio);
+            console.log(data);
+         })
+
+         .fail(function() {
+           myApp.alert('Error al cargar la informacion del usuario' , 'Fallo conexión');
+         });
+                
+    })();
+
+   // Metodo submit del formulario  actualizar los datos del perfil
+    $( "#actualizarPerfilForm" ).submit(function( event ) {
+      
+      // Previene el submit normal y salto de pantalla
+      event.preventDefault();
+      
+      // Obtiene los datos del formulario
+      var $form = $( this ),
+        name = $form.find( "input[name='name']" ).val(),
+        email = $form.find( "input[name='email']" ).val(),
+        cedula = $form.find( "input[name='cedula']" ).val(),
+        telefono = $form.find( "input[name='telefono']" ).val(),
+        fecha_nacimiento = $form.find( "input[name='fecha_nacimiento']" ).val(),
+        domicilio = $form.find( "input[name='domicilio']" ).val(),
+        url = $form.attr( "action" );
+
+      //Muestra el preloader al inciar el proceso
+      myApp.showPreloader('Actualizando datos...');
+       
+      // Envía la solicitud al servidor , serializa a json los datos
+      var posting = $.post( url+"?token="+storage.getItem('token'), 
+      { name : name , email:email,cedula:cedula , telefono:telefono , 
+        fecha_nacimiento:fecha_nacimiento , domicilio:domicilio } )
+     
+        //Si la respuesta del servidor fue satisfactoria
+       .done(function( data ) {
+
+        myApp.hidePreloader(); //Esconde el preloader
+
+        //Si el estado fue exitoso (Registro completo)
+        if (data.status == 'success') {
+            myApp.alert(data.message , 'Correcto');
+        }
+        
+        //Si el estado fue fallido (Email o telefono repetido)
+        if (data.status == 'fail') {
+            myApp.alert(data.message , 'Error');
+        }
+
+      })//end .done
+
+       //Si la solicitud al servidor fue erronea
+      .fail(function() {
+
+        myApp.hidePreloader(); //Esconde el preloader
+
+        //Muestra una alerta
+        myApp.alert('Ha ocurrido un error al contactar al servidor' , 'Sin conexión');
+      }); //End .fail
+      
+    }); //End evento on submit del formulario actualizar los datos del perfil
+
+
+}).trigger() // End vista de configuraciones
+
+
 /**
  * Valida si el usuario tiene una session activa
  * @return boolean
