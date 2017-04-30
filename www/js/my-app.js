@@ -37,33 +37,7 @@ $$(document).on('deviceready', function() {
 });
 
 myApp.onPageInit('index' , function(page){
-
-    
-    //Onclick de cerrar sesion
-    //Invalida el token en el servidor
-    //Destruye el token en storage del telefono
-    $('#logout_btn').click( function(){
-                myApp.confirm('¿Cerrar Sesion?', 'El chacolin colorado', 
-                  function () {
-                      myApp.showPreloader('Finalizando...');
-                      $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
-                        .done(function(data) {
-                          myApp.hidePreloader(); // Esconde el preloader
-                          storage.setItem('token', null); // Elimina el token de autenticacion
-                          mainView.router.loadPage("login.html");
-                        })
-                        .fail(function() {
-                          myApp.hidePreloader(); // Esconde el preloader
-                          myApp.alert('Ha ocurrido un error , vuelve a intentarlo' , 'Error');
-                        });
-                  },
-                  function () {
-                       console.log("Cancelo cerrar sesion");
-                  }
-                );
-    });
-
-}).trigger();
+})
 
 //Vista de autenticacion 
 myApp.onPageInit('login' , function(page){
@@ -482,7 +456,6 @@ myApp.onPageInit('configuraciones', function (page) {
             $('#telefono').val(data.telefono);
             $('#fecha_nacimiento').val(data.fecha_nacimiento);
             $('#domicilio').val(data.domicilio);
-            console.log(data);
          })
 
          .fail(function() {
@@ -544,7 +517,7 @@ myApp.onPageInit('configuraciones', function (page) {
     }); //End evento on submit del formulario actualizar los datos del perfil
 
 
-}).trigger() // End vista de configuraciones
+}) // End vista de configuraciones
 
 
 /**

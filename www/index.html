@@ -154,10 +154,36 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     
+    <script>
+      //Onclick de cerrar sesion
+      //Invalida el token en el servidor
+      //Destruye el token en storage del telefono
+      $('#logout_btn').click( function(){
+                  myApp.confirm('¿Cerrar Sesion?', 'El chacolin colorado', 
+                    function () {
+                        myApp.showPreloader('Finalizando...');
+                        $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
+                          .done(function(data) {
+                            myApp.hidePreloader(); // Esconde el preloader
+                            storage.setItem('token', null); // Elimina el token de autenticacion
+                            myApp.closePanel();
+                            mainView.router.loadPage("login.html");
+                          })
+                          .fail(function() {
+                            myApp.hidePreloader(); // Esconde el preloader
+                            myApp.closePanel();
+                            myApp.alert('Ha ocurrido un error , vuelve a intentarlo' , 'Error');
+                          });
+                    },
+                    function () {
+                         console.log("Cancelo cerrar sesion");
+                    }
+                  );
+      });
+    </script>
     
     <script>
         
-
           document.addEventListener("backbutton", function(e){
 
             //Previene cualquier acto consecuente al back button
