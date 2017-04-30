@@ -582,6 +582,51 @@ myApp.onPageInit('configuraciones', function (page) {
 }) // End vista de configuraciones
 
 
+//Carga la vista para manejar configuraciones
+myApp.onPageInit('premios', function (page) {
+
+ $(function(){
+
+  $('.roulette').find('img').hover(function(){
+    console.log($(this).height());
+  });
+  var appendLogMsg = function(msg) {
+    $('#msg')
+  .append('<p style="color: #2ba20d;font-weight: bolder;" >' + msg + '</p>')
+  .scrollTop(100000000);
+
+  }
+  var p = {
+    startCallback : function() {
+      appendLogMsg('Inicia la ruleta');
+      $('#speed, #duration').slider('disable');
+      $('#stopImageNumber').spinner('disable');
+      $('.start').attr('disabled', 'true');
+    },
+    slowDownCallback : function() {
+      appendLogMsg('Deteniendo...');
+    },
+    stopCallback : function($stopElm) {
+      appendLogMsg('La ruleta se ha detenido');
+      $('#speed, #duration').slider('enable');
+      $('#stopImageNumber').spinner('enable');
+      $('.start').removeAttr('disabled');
+       myApp.alert('Has ganado el siguiente premio: '+$stopElm[0]['title'] , 'Felicidades!!!');
+    }
+
+  }
+  var rouletter = $('div.roulette');
+  rouletter.roulette(p);  
+
+  $('.start').click(function(){
+    rouletter.roulette('start');  
+  });
+
+});
+
+}) // End vista de configuraciones
+
+
 /**
  * Valida si el usuario tiene una session activa
  * @return boolean

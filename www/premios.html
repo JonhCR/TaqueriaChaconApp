@@ -1,0 +1,115 @@
+<!-- No es necesario cargar todo , la plantilla es dinamica , se hace un parser con ajax. -->
+
+<div class="pages">
+
+    <div data-page="premios" class="page">
+    
+    <style type="text/css" media="screen">
+
+        div.roulette {
+          margin-top: 35px;
+        }
+        div.roulette-inner {
+          left : 33px;
+        }
+
+
+        div.roulette { 
+        }
+
+        div.roulette_container {
+          background-color:rgb(255, 255, 255);
+          width:200px;
+          height:200px;
+          border:1px solid rgba(253, 252, 253, 0.31);
+          box-shadow:0px 0px 3px lightpink;margin:auto;
+        }
+
+        .btn_container {
+          margin:20px;
+          text-align:center;
+        }
+        .btn_container .start {
+          margin-right:20px;
+        }
+        .log_container {
+          margin-left:25px;
+          margin-top:80px;
+        }
+        .demo_label {
+          border-left:5px solid gray;
+          padding-left:5px;
+          font-size: 20px;
+        }
+        #msg {
+          border:1px solid #eee;
+          padding:10px 20px;
+          overflow-y: scroll;
+          max-height: 100px; 
+        }
+        div.param_label {
+          margin:20px 0px 10px 0px;
+        }
+        #stopImageNumber {
+          width : 20px;
+        }
+        .param_name {
+          font-weight:bold;
+        }
+        .image_sample img{
+          width : 50px;
+          cursor: pointer;
+        }
+        .right_container {
+          width: 550px;
+          margin-left: 100px;
+        }
+        .code_container {
+          margin-top:50px;
+          width: 500px;
+        }
+        .label-info {
+          margin-bottom: 3px;
+        }
+        div.ui-slider {
+          width: 300px;
+        }
+    </style>
+
+        <div class="page-content">
+            <div class="content-block">
+
+              <!-- content block inner -->
+              <div class="content-block-inner">
+               <p style="font-weight: bolder;color: #d01515;background-color: #ffffc2;padding: 5px;">Tienes un premio por tu cumpleaños que aún no has canjeado!</p> 
+               <p>Son 5 días habiles apartir de la fecha para que puedas girar la ruleta. El premio que te tire la ruleta es completamente gratis y puedes ir a retirarlo a nuestra taquería. ¿Que esperas?</p>
+              </div><!-- End content block inner -->
+              <br>
+              <!-- End span 4 -->
+              <div class="span4">
+                  <div class="roulette_container" >
+                    <div class="roulette" style="display:none;">
+                      <img title="hamburguesa" src="img/premios/hamburguesa.png"/>
+                      <img title="taco" src="img/premios/taco.png"/>
+                      <img title="hotdog" src="img/premios/hotdog.png"/>
+                      <img title="cono" src="img/premios/cono.png"/>
+                      <img title="batido" src="img/premios/batido.png"/>
+                      <img title="gaseosa" src="img/premios/gaseosa.png"/>
+                    </div>
+                  </div>
+                  <div class="btn_container">
+                    <p class="buttons-row">
+                      <button class="start button button-fill button-raised"> Iniciar </button>
+                    </p>
+                  </div>
+                  <div class="log_container">
+                    <p class="demo_label">Acciones:</p>
+                    <div id="msg">
+                    </div>
+                  </div>
+              </div><!-- End span 4 --> 
+  
+            </div> <!-- End content-block -->
+        </div> <!-- End page-content -->
+    </div> <!-- End data page -->
+</div> <!-- End div page -->
