@@ -516,6 +516,68 @@ myApp.onPageInit('configuraciones', function (page) {
       
     }); //End evento on submit del formulario actualizar los datos del perfil
 
+     // Metodo submit del formulario  actualizar los datos del perfil
+    $( "#actualizarPerfilPasswordForm" ).submit(function( event ) {
+      
+      // Previene el submit normal y salto de pantalla
+      event.preventDefault();
+      
+      // Obtiene los datos del formulario
+      var $form = $( this ),
+        password = $form.find( "input[name='password']" ).val(),
+        new_password = $form.find( "input[name='new_password']" ).val(),
+        re_password = $form.find( "input[name='re_password']" ).val(),
+        url = $form.attr( "action" );
+
+      //Muestra el preloader al inciar el proceso
+      myApp.showPreloader('Actualizando seguridad...');
+       
+      // Envía la solicitud al servidor , serializa a json los datos
+      var posting = $.post( url+"?token="+storage.getItem('token'), 
+      { password : password , new_password : new_password, re_password : re_password } )
+     
+        //Si la respuesta del servidor fue satisfactoria
+       .done(function( data ) {
+
+        myApp.hidePreloader(); //Esconde el preloader
+
+        //Si el estado fue exitoso (Registro completo)
+        if (data.status == 'success') {
+            myApp.alert(data.message , 'Correcto' , function(){
+
+                        myApp.showPreloader('Finalizando...');
+                        $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
+                          .done(function(data) {
+                            myApp.hidePreloader(); // Esconde el preloader
+                            storage.setItem('token', null); // Elimina el token de autenticacion
+                            mainView.router.loadPage("login.html");
+                          })
+                          .fail(function() {
+                            myApp.hidePreloader(); // Esconde el preloader
+                            myApp.alert('Ha ocurrido un error al finalizar la session' , 'Error');
+                          });
+
+            });
+        }
+        
+        //Si el estado fue fallido (Email o telefono repetido)
+        if (data.status == 'fail') {
+            myApp.alert(data.message , 'Error');
+        }
+
+      })//end .done
+
+       //Si la solicitud al servidor fue erronea
+      .fail(function() {
+
+        myApp.hidePreloader(); //Esconde el preloader
+
+        //Muestra una alerta
+        myApp.alert('Ha ocurrido un error al contactar al servidor' , 'Sin conexión');
+      }); //End .fail
+      
+    }); //End evento on submit del formulario actualizar los datos del perfil
+
 
 }) // End vista de configuraciones
 

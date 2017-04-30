@@ -100,6 +100,7 @@
                     <!-- Tab 2 -->
                     <div id="tab2" class="tab">
                       <div class="content-block">
+                        <form action="http://taqueriachacon.dev/api/cliente/configuraciones/password" method="post" accept-charset="utf-8" id="actualizarPerfilPasswordForm" >
                         <!-- Formulario de configuraciones -->
                             <div class="content-block-title">Tus datos de acceso</div>
                             <div class="list-block inset">
@@ -109,7 +110,7 @@
                                     <div class="item-inner">
                                       <div class="item-title label">Contraseña Actual</div>
                                       <div class="item-input">
-                                        <input required="" id="password" type="password" placeholder="Contraseña actual">
+                                        <input required="" name="password" id="password" type="password" placeholder="Contraseña actual">
                                       </div>
                                     </div>
                                   </div>
@@ -120,7 +121,7 @@
                                     <div class="item-inner">
                                       <div class="item-title label">Contraseña Nueva</div>
                                       <div class="item-input">
-                                        <input required="" id="new_password" type="password" placeholder="Contraseña actual">
+                                        <input required="" name="new_password" id="new_password" type="password" placeholder="Nueva Contraseña">
                                       </div>
                                     </div>
                                   </div>
@@ -130,7 +131,7 @@
                                     <div class="item-inner">
                                       <div class="item-title label">Repetir Contraseña</div>
                                       <div class="item-input">
-                                        <input required="" id="re_password" type="password" placeholder="Contraseña actual">
+                                        <input required="" name="re_password" id="re_password" type="password" placeholder="Contraseña actual">
                                       </div>
                                     </div>
                                   </div>
@@ -141,11 +142,11 @@
                             </div>
                             <div class="row">
                               <p class="buttons-row">
-                               <a href="#" class="button button-fill button-raised">Guardar</a>
+                               <button type="submit" class="button button-big button-fill">Guardar </button>
                               </p>
                             </div>
                           <!-- End Formulario de configuraciones -->
-
+                          </form>
 
                       </div>
                     </div><!-- End Tab 2 -->
