@@ -585,42 +585,130 @@ myApp.onPageInit('configuraciones', function (page) {
 //Carga la vista para manejar configuraciones
 myApp.onPageInit('premios', function (page) {
 
+//Carga obtiene la informacion del cliente logueado 
+    (function(){ 
+
+        $.ajax({
+          url: "http://taqueriachacon.dev/api/cliente/premios?token="+storage.getItem('token'),
+          async: false,
+        })
+
+         .done(function(data) {
+           console.log(data);
+           var cumpleCliente = data;
+
+           //Si el cliente esta cumpliendo años y aún no ha canjeado premio
+           if(cumpleCliente.diaspasados >= 0 && 
+              cumpleCliente.diaspasados <= 5 && 
+              cumpleCliente.canjeado==0 && cumpleCliente.mes==01 ){
+              $('#canjea-tu-premio').show();
+           }
+           //si el cliente esta cumplieando años pero ya tiro de la ruleta y aun no ha canjeado su premio
+           else if( cumpleCliente.diaspasados >= 0 && 
+                    cumpleCliente.diaspasados <= 5 && 
+                    cumpleCliente.canjeado==1 && cumpleCliente.mes==01 &&
+                    cumpleCliente.premio.estado_premio == 0 ){
+
+              if(cumpleCliente.premio.nombre_premio == 'hamburguesa'){
+                $("#premio_imagen").attr("src","img/premios/hamburguesa.png");
+                $("#premio_nombre").text('hamburguesa');
+              }
+              if(cumpleCliente.premio.nombre_premio == 'taco'){
+                $("#premio_imagen").attr("src","img/premios/taco.png");
+                $("#premio_nombre").text('taco');
+              }
+              if(cumpleCliente.premio.nombre_premio == 'hotdog'){
+                $("#premio_imagen").attr("src","img/premios/hotdog.png");
+                $("#premio_nombre").text('hotdog');
+              }
+              if(cumpleCliente.premio.nombre_premio == 'cono'){
+                $("#premio_imagen").attr("src","img/premios/cono.png");
+                $("#premio_nombre").text('cono');
+              }
+              if(cumpleCliente.premio.nombre_premio == 'batido'){
+                $("#premio_imagen").attr("src","img/premios/batido.png");
+                $("#premio_nombre").text('batido');
+              }
+              if(cumpleCliente.premio.nombre_premio == 'gaseosa'){
+                $("#premio_imagen").attr("src","img/premios/gaseosa.png");
+                $("#premio_nombre").text('gaseosa');
+              }
+
+              $("#premio_fecha").text( cumpleCliente.premio.created_at.split(' ')[0] );
+              $('#revisa-premio-ganado').show();
+
+           }
+           else{
+              $('#sin-premios-pendientes').show();
+           }
+
+
+         })
+
+         .fail(function() {
+           myApp.alert('Error al cargar la informacion del usuario' , 'Fallo conexión');
+         });
+                
+    })();
+
  $(function(){
+    $('.roulette').find('img').hover(function(){
+      console.log($(this).height());
+    });
+    var appendLogMsg = function(msg) {
+      $('#msg')
+    .append('<p style="color: #2ba20d;font-weight: bolder;" >' + msg + '</p>')
+    .scrollTop(100000000);
 
-  $('.roulette').find('img').hover(function(){
-    console.log($(this).height());
-  });
-  var appendLogMsg = function(msg) {
-    $('#msg')
-  .append('<p style="color: #2ba20d;font-weight: bolder;" >' + msg + '</p>')
-  .scrollTop(100000000);
-
-  }
-  var p = {
-    startCallback : function() {
-      appendLogMsg('Inicia la ruleta');
-      $('#speed, #duration').slider('disable');
-      $('#stopImageNumber').spinner('disable');
-      $('.start').attr('disabled', 'true');
-    },
-    slowDownCallback : function() {
-      appendLogMsg('Deteniendo...');
-    },
-    stopCallback : function($stopElm) {
-      appendLogMsg('La ruleta se ha detenido');
-      $('#speed, #duration').slider('enable');
-      $('#stopImageNumber').spinner('enable');
-      $('.start').removeAttr('disabled');
-       myApp.alert('Has ganado el siguiente premio: '+$stopElm[0]['title'] , 'Felicidades!!!');
     }
+    var p = {
+      startCallback : function() {
+        appendLogMsg('Inicia la ruleta');
+        $('#speed, #duration').slider('disable');
+        $('#stopImageNumber').spinner('disable');
+        $('.start').attr('disabled', 'true');
+      },
+      slowDownCallback : function() {
+        appendLogMsg('Deteniendo...');
+      },
+      stopCallback : function($stopElm) {
+        appendLogMsg('La ruleta se ha detenido');
+        $('#speed, #duration').slider('enable');
+        $('#stopImageNumber').spinner('enable');
+        $('.start').removeAttr('disabled');
 
-  }
-  var rouletter = $('div.roulette');
-  rouletter.roulette(p);  
+        myApp.showPreloader('Procesando tu premio...');
 
-  $('.start').click(function(){
-    rouletter.roulette('start');  
-  });
+        // Envía la solicitud al servidor , serializa a json los datos
+        var posting = $.post( 'http://taqueriachacon.dev/api/cliente/canjeo/premios'+"?token="+storage.getItem('token'), 
+        { 'nombre_premio' : $stopElm[0]['title'] } )
+     
+          //Si la respuesta del servidor fue satisfactoria
+         .done(function( data ) {
+
+           myApp.hidePreloader(); //Esconde el preloader
+           myApp.alert('Has ganado el siguiente premio: '+$stopElm[0]['title'] , 'Felicidades!!!', function(){
+            mainView.router.refreshPage();
+           } );
+
+         })//end .done
+
+         //Si la solicitud al servidor fue erronea
+        .fail(function() {
+          //Muestra una alerta
+          myApp.hidePreloader(); //Esconde el preloader
+          myApp.alert('Ha ocurrido un error al contactar al servidor' , 'Sin conexión');
+        }); //End .fail
+      
+      }
+
+    }
+    var rouletter = $('div.roulette');
+    rouletter.roulette(p);  
+
+    $('.start').click(function(){
+      rouletter.roulette('start');  
+    });
 
 });
 
