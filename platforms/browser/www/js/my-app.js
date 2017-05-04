@@ -6,6 +6,7 @@ var myApp = new Framework7({
             pushState: false, // El back button lo manejo manual 
             modalButtonOk : 'Ok' , // Ok button del modal
             modalButtonCancel : 'Cancelar', // Cancel buttom del modal
+            popupCloseByOutside:false, // Evita cerrar los pops
         });
 
 // Si necesito usar Libreria personalizada del DOM se salva en $$
@@ -111,8 +112,7 @@ myApp.onPageInit('pedidos', function (page) {
             cliente = data.cliente;
             for ( i in menus) {       
 
-                            if (menus[i].categoria == 'Comidas') {
-
+                           if (menus[i].categoria == 'Comidas') {
                                 myApp.smartSelectAddOption('#selector_comidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
@@ -121,10 +121,8 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
-
                             }
-
-                            if (menus[i].categoria == 'Bebidas') {
+                           if (menus[i].categoria == 'Bebidas') {
 
                                 myApp.smartSelectAddOption('#selector_bebidas', 
                                 "<option"
@@ -134,9 +132,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
-
                             }
-
                             if (menus[i].categoria == 'Postres') {
 
                                 myApp.smartSelectAddOption('#selector_postres', 
@@ -147,9 +143,8 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
                                 +"</option>");
-
                             }
-                             
+  
             } // End for
            
          })
@@ -160,9 +155,103 @@ myApp.onPageInit('pedidos', function (page) {
                 
     })();
 
+    $('.abrir-carrito').click(function(){
+        myApp.popup('.popup-abrir-carrito');
+    });
+
     //Boton de cancelacion en el primer layout de pedidos
     $('.pedidos_cancelar').click(function(){
         mainView.router.back();
+    });
+
+    //Boton añade comida al carrito
+    $('#add_food_btn').click(function(){
+      
+      //Smartselect Value = id , text = food name , title = price
+      $comida_id = $('.smart-select #selector_comidas')[0].selectedOptions[0].value;
+      $comida_texto = $('.smart-select #selector_comidas')[0].selectedOptions[0].text;
+      $comida_precio = $('.smart-select #selector_comidas')[0].selectedOptions[0].title;
+      $comida_cantidad =  $('#cantidad_comida').val();
+   
+      if( $comida_cantidad > 0){
+
+        //Agrega a la tabla y guarda el nuevo pedido
+
+        //Notifica al usuario
+        myApp.addNotification({
+          message: $comida_texto +' se añadió a tu pedido',
+          hold : 5000,
+          button :{
+                    text: 'cerrar',
+                    color: 'green',
+                    close: true
+                  }
+        });
+
+      }else{
+        myApp.alert('La cantidad debe ser mayor a 0' , $comida_texto );
+      }
+
+    });
+
+     //Boton añade postres al carrito
+    $('#add_desert_btn').click(function(){
+      
+      //Smartselect Value = id , text = desert name , title = price
+      $postre_id = $('.smart-select #selector_postres')[0].selectedOptions[0].value;
+      $postre_texto = $('.smart-select #selector_postres')[0].selectedOptions[0].text;
+      $postre_precio = $('.smart-select #selector_postres')[0].selectedOptions[0].title;
+      $postre_cantidad =  $('#cantidad_postre').val();
+   
+      if( $postre_cantidad > 0){
+
+        //Agrega a la tabla y guarda el nuevo pedido
+
+        //Notifica al usuario
+        myApp.addNotification({
+          message: $postre_texto +' se añadió a tu pedido',
+          hold : 5000,
+          button :{
+                    text: 'cerrar',
+                    color: 'green',
+                    close: true
+                  }
+        });
+
+      }else{
+        myApp.alert('La cantidad debe ser mayor a 0' , $postre_texto );
+      }
+
+    });
+
+     //Boton añade bebidas al carrito
+    $('#add_drink_btn').click(function(){
+      
+      //Smartselect Value = id , text = drink name , title = price
+      $bebida_id = $('.smart-select #selector_bebidas')[0].selectedOptions[0].value;
+      $bebida_texto = $('.smart-select #selector_bebidas')[0].selectedOptions[0].text;
+      $bebida_precio = $('.smart-select #selector_bebidas')[0].selectedOptions[0].title;
+      $bebida_cantidad =  $('#cantidad_bebida').val();
+   
+      if( $bebida_cantidad > 0){
+
+        //Agrega a la tabla y guarda el nuevo pedido
+
+        //Notifica al usuario
+        myApp.addNotification({
+          message: $bebida_texto +' se añadió a tu pedido',
+          hold : 5000,
+          button :{
+                    text: 'cerrar',
+                    color: 'green',
+                    close: true
+                  }
+        });
+
+      }else{
+        myApp.alert('La cantidad debe ser mayor a 0' , $bebida_texto );
+      }
+
     });
 
      //Etapa 2 de la solicitud de pedidos , valida que se seleccione almenos un item antes de continuar

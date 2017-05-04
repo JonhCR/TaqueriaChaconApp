@@ -28,49 +28,186 @@
 				    <div class="swiper-wrapper">
 				     <!--Step 1 -->
 				      <div class="swiper-slide">
-				         <!-- This block will be inset only on tablets -->
 						    
-						      <div class="content-block-inner">
-						      <p style="text-align: left;font-size: large"><b style="color: #f44336;">1) Paso :</b> Selecciona las comidas , bebidas o postres que deseés.</p>
-						      </div>
-						  
+						    <div class="content-block-inner">
+						    <p style="text-align: left;font-size: large"><b style="color: #f44336;">1Paso :</b> Selecciona las comidas , bebidas o postres que deseés.</p>
+						    </div>
 
-			                <div class="list-block">
-							  <ul>
-								    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar comidas" data-picker-height="400px" >
-								        <!-- "multiple" attribute for multiple select-->
-								        <select id="selector_comidas" name="comidas" multiple>
-								        </select>
-								        <div class="item-content">
-								          <div class="item-inner">
-								            <div class="item-title">Comidas</div>
-								          </div>
-								        </div></a>
-								    </li>
+						     
+						    <p class="buttons-row">
+						      <a style="text-align: right;" href="#" class="button abrir-carrito"><i class="f7-icons">box</i> Ver Carrito</a>
+						    </p> 
 
-								    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar bebidas" data-picker-height="400px" >
-								        <!-- "multiple" attribute for multiple select-->
-								        <select id="selector_bebidas" name="car" multiple>
-								        </select>
-								        <div class="item-content">
-								          <div class="item-inner">
-								            <div class="item-title">Bebidas</div>
-								          </div>
-								        </div></a>
-								    </li>
+						    <div class="popup-overlay"> 
+							    <div class="popup popup-abrir-carrito">
+								  <div class="content-block">
+								 
+								    <a style="text-align: right;" href="#" class="button close-popup"><i class="f7-icons">close_round_fill</i> Cerrar carrito</a>
+								    <h2>Aún no tienes elementos en tu carrito de compra</h2>
+								  </div>
+								</div>
+						    </div>
+						   						  
+						    <div class="content-block-title">Seleccione la comida y añadala a su pedido</div>
+							<div class="card">
+							  <div class="card-content">
+							    <div class="card-content-inner">
 
-								    <li><a href="#" class="item-link smart-select" data-open-in="picker"  data-picker-close-text="Cerrar postres" data-picker-height="400px" >
-								        <!-- "multiple" attribute for multiple select-->
-								        <select id="selector_postres" name="car" multiple>
-								        </select>
-								        <div class="item-content">
-								          <div class="item-inner">
-								            <div class="item-title">Postres</div>
-								          </div>
-								        </div></a>
-								    </li>
-							  </ul>
+								    <div class="row">
+								    	<div class="col-60">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+													    <a href="#" class="item-link smart-select" data-back-on-select="true" data-searchbar="true" data-searchbar-placeholder="Busque su comida" data-open-in="popup" data-page-title="Menú de comidas" data-back-text="Atrás">
+
+													        <select id="selector_comidas" name="comidas" >
+													        </select>
+
+													        <div class="item-content">
+													          <div class="item-inner">
+													            <div class="item-title"><i class="f7-icons">search_strong</i></div>
+													          </div>
+													        </div>
+
+													        </a>
+												    </li>
+												  </ul>
+											</div> 
+								    	</div>
+
+								    	<div class="col-40">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+												      <div class="item-content">
+												        <div class="item-inner">
+												          <div class="item-input">
+												            <input style="text-align: center;" id="cantidad_comida" required="" min="1" max="30" type="number" placeholder="Cantidad">
+												          </div>
+												        </div>
+												      </div>
+												    </li>
+												  </ul>
+											</div>      
+								    	</div>	
+
+								    	<div class="col-100">
+								    		<p class="buttons-row ">
+											     <a id="add_food_btn" style="width:100%;" href="#" class="button button-raised"><i class="f7-icons">add_round_fill</i> Añadir esta comida a mi carrito</a>
+										    </p> 
+								    	</div>
+								    </div>
+								</div>
+							   </div>
 							</div>
+						
+							<div class="content-block-title">Seleccione la bebida y añadala a su pedido</div>
+							<div class="card">
+							  <div class="card-content">
+							    <div class="card-content-inner">
+
+								    <div class="row">
+								    	<div class="col-60">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+													    <a href="#" class="item-link smart-select" data-back-on-select="true" data-searchbar="true" data-searchbar-placeholder="Busque su bebida" data-open-in="popup" data-page-title="Menú de bebidas" data-back-text="Atrás">
+
+													        <select id="selector_bebidas" name="bebidas" >
+													        </select>
+
+													        <div class="item-content">
+													          <div class="item-inner">
+													            <div class="item-title"><i class="f7-icons">search_strong</i></div>
+													          </div>
+													        </div>
+
+													        </a>
+												    </li>
+												  </ul>
+											</div> 
+								    	</div>
+
+								    	<div class="col-40">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+												      <div class="item-content">
+												        <div class="item-inner">
+												          <div class="item-input">
+												            <input style="text-align: center;" id="cantidad_bebida" required="" min="1" max="30" type="number" placeholder="Cantidad">
+												          </div>
+												        </div>
+												      </div>
+												    </li>
+												  </ul>
+											</div>      
+								    	</div>	
+
+								    	<div class="col-100">
+								    		<p class="buttons-row ">
+											     <a id="add_drink_btn" style="width:100%;" href="#" class="button button-raised"><i class="f7-icons">add_round_fill</i> Añadir esta bebida a mi carrito</a>
+										    </p> 
+								    	</div>
+								    </div>
+								</div>
+							   </div>
+							</div>
+
+							<div class="content-block-title">Seleccione el postre y añadalo a su pedido</div>
+							<div class="card">
+							  <div class="card-content">
+							    <div class="card-content-inner">
+
+								    <div class="row">
+								    	<div class="col-60">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+													    <a href="#" class="item-link smart-select" data-back-on-select="true" data-searchbar="true" data-searchbar-placeholder="Busque su postre" data-open-in="popup" data-page-title="Menú de postres" data-back-text="Atrás">
+
+													        <select id="selector_postres" name="postres" >
+													        </select>
+
+													        <div class="item-content">
+													          <div class="item-inner">
+													            <div class="item-title"><i class="f7-icons">search_strong</i></div>
+													          </div>
+													        </div>
+
+													        </a>
+												    </li>
+												  </ul>
+											</div> 
+								    	</div>
+
+								    	<div class="col-40">
+								    		<div class="list-block">
+												  <ul>
+												    <li>
+												      <div class="item-content">
+												        <div class="item-inner">
+												          <div class="item-input">
+												            <input style="text-align: center;" id="cantidad_postre" required="" min="1" max="30" type="number" placeholder="Cantidad">
+												          </div>
+												        </div>
+												      </div>
+												    </li>
+												  </ul>
+											</div>      
+								    	</div>	
+
+								    	<div class="col-100">
+								    		<p class="buttons-row ">
+											     <a id="add_desert_btn" style="width:100%;" href="#" class="button button-raised"><i class="f7-icons">add_round_fill</i> Añadir este postre a mi carrito</a>
+										    </p> 
+								    	</div>
+								    </div>
+								</div>
+							   </div>
+							</div>
+			                
+			                <br>
 
 							<div class="row">
 							

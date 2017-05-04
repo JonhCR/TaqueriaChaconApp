@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="img-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval' ; media-src * " />
+    <meta http-equiv="Content-Security-Policy" content="img-src * 'self' data: https:; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval' ; media-src * " />
 
 
     <!-- Required meta tags-->
@@ -194,6 +194,11 @@
             /* Si los menús laterales están abiertos */
             if ($$('.panel.active').length > 0) {
                 myApp.closePanel();
+                
+            }
+
+            //Si hay un overlay desactiva el button back
+            if ($$('.modal-overlay-visible').length > 0) {
                 return;
             }
 
@@ -204,7 +209,7 @@
             if (!view) return;
             if ( view.history.length > 1 && myApp.getCurrentView().activePage.name  != 'index' && 
                  myApp.getCurrentView().activePage.name  != 'login') {
-                view.router.back();
+                 view.router.back();
                 return;
             }
 
