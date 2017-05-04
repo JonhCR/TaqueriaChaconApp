@@ -101,7 +101,7 @@ myApp.onPageInit('pedidos', function (page) {
     (function(){ 
 
         $.ajax({
-          url: "http://taqueriachacon.dev/api/cliente/pedidos?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/pedidos?token="+storage.getItem('token'),
           async: false,
         })
 
@@ -116,7 +116,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_comidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -129,7 +129,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_bebidas', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -142,7 +142,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 myApp.smartSelectAddOption('#selector_postres', 
                                 "<option"
                                 +" data-option-class=img-small lazy lazy-fadeIn"
-                                +" data-option-image=http://taqueriachacon.dev/"+ menus[i].foto
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
                                 +menus[i].nombre
@@ -321,7 +321,7 @@ myApp.onPageInit('pedidos', function (page) {
             fecha_venc_tarjeta : $('#mes_venc_tarjeta').val()+'/'+$('#año_venc_tarjeta').val(),
         });
 
-        url = "http://taqueriachacon.dev/api/cliente/pedidos?token="+storage.getItem('token');
+        url = "http://www.taqueriachaconpavas.com/api/cliente/pedidos?token="+storage.getItem('token');
 
         //Muestra el preloader al inciar el proceso
         myApp.showPreloader('Realizando pedido....');
@@ -444,7 +444,7 @@ myApp.onPageInit('configuraciones', function (page) {
     (function(){ 
 
         $.ajax({
-          url: "http://taqueriachacon.dev/api/cliente/configuraciones?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/configuraciones?token="+storage.getItem('token'),
           async: false,
         })
 
@@ -546,7 +546,7 @@ myApp.onPageInit('configuraciones', function (page) {
             myApp.alert(data.message , 'Correcto' , function(){
 
                         myApp.showPreloader('Finalizando...');
-                        $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
+                        $.get( "http://www.taqueriachaconpavas.com/api/cliente/logout?token="+storage.getItem('token'))
                           .done(function(data) {
                             myApp.hidePreloader(); // Esconde el preloader
                             storage.setItem('token', null); // Elimina el token de autenticacion
@@ -589,7 +589,7 @@ myApp.onPageInit('premios', function (page) {
     (function(){ 
 
         $.ajax({
-          url: "http://taqueriachacon.dev/api/cliente/premios?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/premios?token="+storage.getItem('token'),
           async: false,
         })
 
@@ -680,7 +680,7 @@ myApp.onPageInit('premios', function (page) {
         myApp.showPreloader('Procesando tu premio...');
 
         // Envía la solicitud al servidor , serializa a json los datos
-        var posting = $.post( 'http://taqueriachacon.dev/api/cliente/canjeo/premios'+"?token="+storage.getItem('token'), 
+        var posting = $.post( 'http://www.taqueriachaconpavas.com/api/cliente/canjeo/premios'+"?token="+storage.getItem('token'), 
         { 'nombre_premio' : $stopElm[0]['title'] } )
      
           //Si la respuesta del servidor fue satisfactoria
@@ -724,7 +724,7 @@ function userAuthenticated(){
    var auth = false;
 
        $.ajax({
-          url: "http://taqueriachacon.dev/api/cliente/check/auth?token="+storage.getItem('token'),
+          url: "http://www.taqueriachaconpavas.com/api/cliente/check/auth?token="+storage.getItem('token'),
           async: false,
         })
          .done(function(data) {

@@ -164,7 +164,7 @@
                   myApp.confirm('¿Cerrar Sesion?', 'El chacolin colorado', 
                     function () {
                         myApp.showPreloader('Finalizando...');
-                        $.get( "http://taqueriachacon.dev/api/cliente/logout?token="+storage.getItem('token'))
+                        $.get( "http://www.taqueriachaconpavas.com/api/cliente/logout?token="+storage.getItem('token'))
                           .done(function(data) {
                             myApp.hidePreloader(); // Esconde el preloader
                             storage.setItem('token', null); // Elimina el token de autenticacion
