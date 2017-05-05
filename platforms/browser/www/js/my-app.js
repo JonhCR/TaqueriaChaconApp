@@ -155,9 +155,75 @@ myApp.onPageInit('pedidos', function (page) {
                 
     })();
 
+    //Abre una ventan popup en donde en un listview injecta los pedidos
+    //Crea botones con ids listener para poder reaccionar y eliminar elementos
     $('.abrir-carrito').click(function(){
+
+        $('#ul-carrito li').remove(); //Limpia las listas del carrito
+
+        for (var i = 0, l = menu_escogido.length; i < l; i++) {
+
+             var menu = menu_escogido[i];
+
+             $("#ul-carrito").append('<li class="item-content" >'
+             +'<div class="item-media">'
+             +'<a id="'+menu.menu_id+'" href="#" class="button carrito-eliminar-btn"><i class="f7-icons">close_round_fill</i></a></div>'
+             +'<div class="item-inner">'
+             +'<div class="item-title"> ('+menu.cantidad+') '+ menu.item_nombre+'</div>'
+             +'<div class="item-after"> ₡ '+ (menu.cantidad * menu.total) +'</div>'
+             +'</div>'
+             +'</li>');
+
+        }
         myApp.popup('.popup-abrir-carrito');
-    });
+    });//Fin abrir carrito
+
+     //Nomenclatura usada para añadir listener a elemntos interactivos
+     //Elimina un elemento del objeto menu_escogido 
+     //Elimina un elemento del listview
+     //Actualiza el carrito
+     $('body').on('click', '.carrito-eliminar-btn', function() {
+          
+          var id = $(this)[0].id ; //id de la comida
+          var menu_escogido_actualizado = [] //Creo un objeto actualizado del menu
+
+          //Acualizo el nuevo objeto del menu con todos menos los que coincidan con el
+          //id escogido
+          for (var i = 0, l = menu_escogido.length; i < l; i++) {
+             var menu = menu_escogido[i]; 
+             if(menu.menu_id != id ){
+                menu_escogido_actualizado.push({
+                    menu_id: menu.menu_id,
+                    item_nombre: menu.item_nombre,
+                    total : menu.total,
+                    cantidad : menu.cantidad
+                });
+             }
+          }
+          
+          menu_escogido = menu_escogido_actualizado; //Guardo en menu escogido
+
+          $('#ul-carrito li').remove(); //Limpia las listas del carrito
+
+          for (var i = 0, l = menu_escogido.length; i < l; i++) {
+
+               var menu = menu_escogido[i];
+
+               $("#ul-carrito").append('<li class="item-content" >'
+               +'<div class="item-media">'
+               +'<a id="'+menu.menu_id+'" href="#" class="button carrito-eliminar-btn"><i class="f7-icons">close_round_fill</i></a></div>'
+               +'<div class="item-inner">'
+               +'<div class="item-title"> ('+menu.cantidad+') '+ menu.item_nombre+'</div>'
+               +'<div class="item-after"> ₡ '+ (menu.cantidad * menu.total) +'</div>'
+               +'</div>'
+               +'</li>');
+
+          }
+
+          //Actualizo elementos del carrito
+          $('#carrito_cantidad').text( parseInt( $('#carrito_cantidad').text() ) - 1 );
+
+     });// Fin carrito-eliminar-btn
 
     //Boton de cancelacion en el primer layout de pedidos
     $('.pedidos_cancelar').click(function(){
@@ -168,18 +234,24 @@ myApp.onPageInit('pedidos', function (page) {
     $('#add_food_btn').click(function(){
       
       //Smartselect Value = id , text = food name , title = price
-      $comida_id = $('.smart-select #selector_comidas')[0].selectedOptions[0].value;
-      $comida_texto = $('.smart-select #selector_comidas')[0].selectedOptions[0].text;
-      $comida_precio = $('.smart-select #selector_comidas')[0].selectedOptions[0].title;
-      $comida_cantidad =  $('#cantidad_comida').val();
+      var comida_id = $('.smart-select #selector_comidas')[0].selectedOptions[0].value;
+      var comida_texto = $('.smart-select #selector_comidas')[0].selectedOptions[0].text;
+      var comida_precio = $('.smart-select #selector_comidas')[0].selectedOptions[0].title;
+      var comida_cantidad =  $('#cantidad_comida').val();
    
-      if( $comida_cantidad > 0){
+      if( comida_cantidad > 0){
 
         //Agrega a la tabla y guarda el nuevo pedido
+        menu_escogido.push({
+                               menu_id: comida_id,
+                               item_nombre: comida_texto,
+                               total : comida_precio,
+                               cantidad : comida_cantidad
+                           });
 
         //Notifica al usuario
         myApp.addNotification({
-          message: $comida_texto +' se añadió a tu pedido',
+          message: comida_texto +' se añadió a tu carrito',
           hold : 5000,
           button :{
                     text: 'cerrar',
@@ -188,8 +260,12 @@ myApp.onPageInit('pedidos', function (page) {
                   }
         });
 
+        //Actualiza la cantidad y el carrito
+        $('#cantidad_comida').val(0);
+        $('#carrito_cantidad').text( parseInt( $('#carrito_cantidad').text() ) + 1 );
+
       }else{
-        myApp.alert('La cantidad debe ser mayor a 0' , $comida_texto );
+        myApp.alert('La cantidad debe ser mayor a 0' , comida_texto );
       }
 
     });
@@ -198,18 +274,24 @@ myApp.onPageInit('pedidos', function (page) {
     $('#add_desert_btn').click(function(){
       
       //Smartselect Value = id , text = desert name , title = price
-      $postre_id = $('.smart-select #selector_postres')[0].selectedOptions[0].value;
-      $postre_texto = $('.smart-select #selector_postres')[0].selectedOptions[0].text;
-      $postre_precio = $('.smart-select #selector_postres')[0].selectedOptions[0].title;
-      $postre_cantidad =  $('#cantidad_postre').val();
+      var postre_id = $('.smart-select #selector_postres')[0].selectedOptions[0].value;
+      var postre_texto = $('.smart-select #selector_postres')[0].selectedOptions[0].text;
+      var postre_precio = $('.smart-select #selector_postres')[0].selectedOptions[0].title;
+      var postre_cantidad =  $('#cantidad_postre').val();
    
-      if( $postre_cantidad > 0){
+      if( postre_cantidad > 0){
 
         //Agrega a la tabla y guarda el nuevo pedido
+        menu_escogido.push({
+                               menu_id: postre_id,
+                               item_nombre: postre_texto,
+                               total : postre_precio,
+                               cantidad : postre_cantidad
+                           });
 
         //Notifica al usuario
         myApp.addNotification({
-          message: $postre_texto +' se añadió a tu pedido',
+          message: postre_texto +' se añadió a tu carrito',
           hold : 5000,
           button :{
                     text: 'cerrar',
@@ -218,8 +300,12 @@ myApp.onPageInit('pedidos', function (page) {
                   }
         });
 
+        //Actualiza la cantidad y el carrito
+        $('#cantidad_postre').val(0);
+        $('#carrito_cantidad').text( parseInt( $('#carrito_cantidad').text() ) + 1 );
+
       }else{
-        myApp.alert('La cantidad debe ser mayor a 0' , $postre_texto );
+        myApp.alert('La cantidad debe ser mayor a 0' , postre_texto );
       }
 
     });
@@ -228,18 +314,24 @@ myApp.onPageInit('pedidos', function (page) {
     $('#add_drink_btn').click(function(){
       
       //Smartselect Value = id , text = drink name , title = price
-      $bebida_id = $('.smart-select #selector_bebidas')[0].selectedOptions[0].value;
-      $bebida_texto = $('.smart-select #selector_bebidas')[0].selectedOptions[0].text;
-      $bebida_precio = $('.smart-select #selector_bebidas')[0].selectedOptions[0].title;
-      $bebida_cantidad =  $('#cantidad_bebida').val();
+      var bebida_id = $('.smart-select #selector_bebidas')[0].selectedOptions[0].value;
+      var bebida_texto = $('.smart-select #selector_bebidas')[0].selectedOptions[0].text;
+      var bebida_precio = $('.smart-select #selector_bebidas')[0].selectedOptions[0].title;
+      var bebida_cantidad =  $('#cantidad_bebida').val();
    
-      if( $bebida_cantidad > 0){
+      if( bebida_cantidad > 0){
 
         //Agrega a la tabla y guarda el nuevo pedido
+        menu_escogido.push({
+                               menu_id: bebida_id,
+                               item_nombre: bebida_texto,
+                               total : bebida_precio,
+                               cantidad : bebida_cantidad
+                           });
 
         //Notifica al usuario
         myApp.addNotification({
-          message: $bebida_texto +' se añadió a tu pedido',
+          message: bebida_texto +' se añadió a tu carrito',
           hold : 5000,
           button :{
                     text: 'cerrar',
@@ -248,8 +340,12 @@ myApp.onPageInit('pedidos', function (page) {
                   }
         });
 
+        //Actualiza la cantidad y el carrito
+        $('#cantidad_bebida').val(0);
+        $('#carrito_cantidad').text( parseInt( $('#carrito_cantidad').text() ) + 1 );
+
       }else{
-        myApp.alert('La cantidad debe ser mayor a 0' , $bebida_texto );
+        myApp.alert('La cantidad debe ser mayor a 0' , bebida_texto );
       }
 
     });
@@ -258,10 +354,8 @@ myApp.onPageInit('pedidos', function (page) {
      //En caso de proseguir setea los datos del usuario
     $('.pedidos_verificar_entrega').click(function(){
 
-        if( $('#selector_comidas')[0].selectedOptions.length == 0 &&
-            $('#selector_bebidas')[0].selectedOptions.length == 0 &&
-            $('#selector_postres')[0].selectedOptions.length == 0  ){
-            myApp.alert('Debes seleccionar almenos una comida , bebida o postre en tu pedido' , 'Campos Vacíos');
+        if( menu_escogido.length == 0  ){
+            myApp.alert('Debes seleccionar al menos una comida , bebida o postre en tu pedido' , 'Campos Vacíos');
         }else{
             $('#input_pedido_nombre').val(cliente.name);
             $('#input_pedido_telefono').val(cliente.telefono);

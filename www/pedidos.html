@@ -35,7 +35,7 @@
 
 						     
 						    <p class="buttons-row">
-						      <a style="text-align: right;" href="#" class="button abrir-carrito"><i class="f7-icons">box</i> Ver Carrito</a>
+						      <a style="text-align: right;" href="#" class="button abrir-carrito"><i class="f7-icons">box</i> Ver Carrito (<b id="carrito_cantidad">0</b>)</a>
 						    </p> 
 
 						    <div class="popup-overlay"> 
@@ -43,7 +43,11 @@
 								  <div class="content-block">
 								 
 								    <a style="text-align: right;" href="#" class="button close-popup"><i class="f7-icons">close_round_fill</i> Cerrar carrito</a>
-								    <h2>Aún no tienes elementos en tu carrito de compra</h2>
+								    <div class="content-block-title">Esto es lo que llevas: </div>
+								    <div class="list-block">
+								      <ul id="ul-carrito">
+								      </ul>
+								    </div>
 								  </div>
 								</div>
 						    </div>
