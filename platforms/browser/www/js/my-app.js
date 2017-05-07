@@ -360,6 +360,7 @@ myApp.onPageInit('pedidos', function (page) {
             $('#input_pedido_nombre').val(cliente.name);
             $('#input_pedido_telefono').val(cliente.telefono);
             $('#input_pedido_direccion').val(cliente.domicilio);
+            console.log(menu_escogido);
             swiPedidos.slideNext();
         }
        
@@ -376,14 +377,15 @@ myApp.onPageInit('pedidos', function (page) {
             myApp.alert('Necesitamos almenos tres datos: tu nombre , telefono y direccion.' , 'Campos Vacíos');
           }else{
 
-              pedido_info_entrega = []; //Limpio la informacion de entrega para setear una nueva
-              menu_escogido = []; // Limpia el menu escogido para setear el que ha escogido
-              
+              console.log(menu_escogido);
+
               //Determina si el transporte fue seleccionado
               var transporte = 0; // Asume que no fue chequeado
               if ( $('#input_pedido_transporte').is(':checked') ){
                 transporte = 1;
               }
+
+              pedido_info_entrega = []; //Limpio la informacion de entrega para setear una nueva
 
               //Serializa los datos de informacion de entrega
               pedido_info_entrega.push({
@@ -400,57 +402,31 @@ myApp.onPageInit('pedidos', function (page) {
               $('#detalles_items ul li').remove();// Limpia las listas de compras
 
               //Muestra y serializa todos los elementos de menu escogidos
-              for (var i = 0; i < $('#selector_comidas')[0].selectedOptions.length; i++) {
+              for (var i = 0; i < menu_escogido.length; i++) {
                 $("#detalles_items ul").append('<li class="item-content" >'
                   +'<div class="item-media"><i class="f7-icons">play</i></div>'
                   +'<div class="item-inner">'
-                  +'<div class="item-title">'+$('#selector_comidas')[0].selectedOptions[i].label+'</div>'
-                  +'<div class="item-after">₡ '+$('#selector_comidas')[0].selectedOptions[i].title+'</div>'
+                  +'<div class="item-title">( '+menu_escogido[i].cantidad+' )'+ menu_escogido[i].item_nombre +'</div>'
+                  +'<div class="item-after">₡ '+ ( menu_escogido[i].cantidad * menu_escogido[i].total ) +'</div>'
                   +'</div>'
                   +'</li>');
 
-                  menu_escogido.push({
-                                        menu_id: $('#selector_comidas')[0].selectedOptions[i].value,
-                                        item_nombre: $('#selector_comidas')[0].selectedOptions[i].label,
-                                        total : $('#selector_comidas')[0].selectedOptions[i].title,
-                                    });
-
-                  pedido_total = pedido_total + parseFloat($('#selector_comidas')[0].selectedOptions[i].title);
+                  pedido_total = pedido_total +  ( menu_escogido[i].cantidad * menu_escogido[i].total ) ;
               }
 
-              for (var i = 0; i < $('#selector_bebidas')[0].selectedOptions.length; i++) {
+              //Si express fue seleccionado lo adjunto a los detalles
+              if( transporte > 0) {
+
                 $("#detalles_items ul").append('<li class="item-content" >'
                   +'<div class="item-media"><i class="f7-icons">play</i></div>'
                   +'<div class="item-inner">'
-                  +'<div class="item-title">'+$('#selector_bebidas')[0].selectedOptions[i].label+'</div>'
-                  +'<div class="item-after">₡ '+$('#selector_bebidas')[0].selectedOptions[i].title+'</div>'
+                  +'<div class="item-title">Cargos por transporte</div>'
+                  +'<div class="item-after">₡ 800</div>'
                   +'</div>'
                   +'</li>');
 
-                   menu_escogido.push({
-                                        menu_id: $('#selector_comidas')[0].selectedOptions[i].value,
-                                        item_nombre: $('#selector_comidas')[0].selectedOptions[i].label,
-                                        total : $('#selector_comidas')[0].selectedOptions[i].title,
-                                    });
+                   pedido_total = (pedido_total +  800) ;
 
-                   pedido_total = pedido_total + parseFloat($('#selector_bebidas')[0].selectedOptions[i].title);
-              }
-
-              for (var i = 0; i < $('#selector_postres')[0].selectedOptions.length; i++) {
-                $("#detalles_items ul").append('<li class="item-content" >'
-                  +'<div class="item-media"><i class="f7-icons">play</i></div>'
-                  +'<div class="item-inner">'
-                  +'<div class="item-title">'+$('#selector_postres')[0].selectedOptions[i].label+'</div>'
-                  +'<div class="item-after">₡ '+$('#selector_postres')[0].selectedOptions[i].title+'</div>'
-                  +'</div>'
-                  +'</li>');
-
-                   menu_escogido.push({
-                                        menu_id: $('#selector_comidas')[0].selectedOptions[i].value,
-                                        item_nombre: $('#selector_comidas')[0].selectedOptions[i].label,
-                                        total : $('#selector_comidas')[0].selectedOptions[i].title,
-                                    });
-                  pedido_total = pedido_total + parseFloat($('#selector_postres')[0].selectedOptions[i].title);
               }
 
               $("#detalles_items ul").append('<li style="background-color: rgb(245, 247, 219);" class="item-content" >'
