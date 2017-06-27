@@ -101,8 +101,19 @@
 
                  <!-- Toolbar has additional "toolbar-bottom" class -->
                   <div class="toolbar toolbar-bottom">
-                    <div id="session_bottom_toolbars" class="toolbar-inner">
-                    </div>
+
+                        <div style="display:none;" class="toolbar-inner session_bottom_toolbars_guess">
+                            <a href='login.html' class='link'><i class='f7-icons'>login</i>&nbsp;<p>Iniciar Sesion</p></a>
+                            <a href='menu.html' class='link'><i class='f7-icons'>collection</i>&nbsp;<p>Menu</p></a>
+                            <a href='login.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a>
+                        </div>
+
+                        <div style="display:none;" class="toolbar-inner session_bottom_toolbars_user">
+                            <a href='index.html' class='link'><i class='f7-icons'>home</i>&nbsp;<p>Inicio</p></a>
+                            <a href='pedidos.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a>
+                            <a href='premios.html' class='link'><i class='f7-icons'>heart</i>&nbsp;<p>Premios</p></a> 
+                        </div>
+
                   </div>
 
                     <div class="page-content">
@@ -111,7 +122,7 @@
                                 <!-- Index content -->
                                 
                                 <div style="text-align:right" class="content-block-title"> 
-                                     <b id="session_header_status"></b> 
+                                     <b class="session_header_status"></b> 
                                 </div>
 
                                 <div class="card">

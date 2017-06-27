@@ -25,32 +25,29 @@ $$(document).on('deviceready', function() {
 
     //Si el dispositivo no tiene un token de autenticacion
     if(typeof token == null || !token || token == 'null' ){
-          $('#session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
-          $('#session_bottom_toolbars').html( " <a href='login.html' class='link'><i class='f7-icons'>login</i>&nbsp;<p>Iniciar Sesion</p></a>"+
-                                              " <a href='menu.html' class='link'><i class='f7-icons'>collection</i>&nbsp;<p>Menu</p></a>"+
-                                              " <a href='login.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a> " );
-          $('.session_panel_options_guess').show();
-          $('.session_panel_options_user').hide();
+          $('.session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('.session_panel_options_user').hide(); //Panel right for user hidded
+          $('.session_bottom_toolbars_user').hide(); //Toolbar buttoms for user hidded
+          $('.session_panel_options_guess').show();  //Panel right for guess showed
+          $('.session_bottom_toolbars_guess').show(); //Toolbar buttoms for guess showed
     }
     else{
       //Determina si el token aun sigue siendo valido en el servidor
       if( !userAuthenticated() ){
 
-          $('#session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
-          $('#session_bottom_toolbars').html( " <a href='login.html' class='link'><i class='f7-icons'>login</i>&nbsp;<p>Inicio</p></a>"+
-                                              " <a href='menu.html' class='link'><i class='f7-icons'>collection</i>&nbsp;<p>Menu</p></a>"+
-                                              " <a href='login.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a> " );
-          $('.session_panel_options_guess').show();
-          $('.session_panel_options_user').hide();
+          $('.session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('.session_panel_options_user').hide(); //Panel right for user hidded
+          $('.session_bottom_toolbars_user').hide(); //Toolbar buttoms for user hidded
+          $('.session_panel_options_guess').show();  //Panel right for guess showed
+          $('.session_bottom_toolbars_guess').show(); //Toolbar buttoms for guess showed
       }
       //El token existe y todavia es valido
       else{
-          $('#session_header_status').html( "<b> <i class='f7-icons'>person</i>  Jhon Moreira </b>" );
-          $('#session_bottom_toolbars').html( " <a href='index.html' class='link'><i class='f7-icons'>home</i>&nbsp;<p>Inicio</p></a>"+
-                                              " <a href='pedidos.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a>"+
-                                              " <a href='premios.html' class='link'><i class='f7-icons'>heart</i>&nbsp;<p>Premios</p></a> " );
-          $('.session_panel_options_user').show();
-          $('.session_panel_options_guess').hide();
+          $('.session_header_status').html( "<b> <i class='f7-icons'>person</i>  Jhon Moreira </b>" );
+          $('.session_panel_options_user').show(); //Panel right for user showed
+          $('.session_bottom_toolbars_user').show(); //Toolbar buttoms for user showed
+          $('.session_panel_options_guess').hide();  //Panel right for guess hidded
+          $('.session_bottom_toolbars_guess').hide(); //Toolbar buttoms for guess hidded
       }
     }
 
@@ -59,6 +56,36 @@ $$(document).on('deviceready', function() {
 
 myApp.onPageInit('index' , function(page){
 
+    var token = storage.getItem('token'); // Obtiene el token en el telefono
+
+    //Si el dispositivo no tiene un token de autenticacion
+    if(typeof token == null || !token || token == 'null' ){
+          $('.session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('.session_panel_options_user').hide(); //Panel right for user hidded
+          $('.session_bottom_toolbars_user').hide(); //Toolbar buttoms for user hidded
+          $('.session_panel_options_guess').show();  //Panel right for guess showed
+          $('.session_bottom_toolbars_guess').show(); //Toolbar buttoms for guess showed
+    }
+    else{
+      //Determina si el token aun sigue siendo valido en el servidor
+      if( !userAuthenticated() ){
+
+          $('.session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('.session_panel_options_user').hide(); //Panel right for user hidded
+          $('.session_bottom_toolbars_user').hide(); //Toolbar buttoms for user hidded
+          $('.session_panel_options_guess').show();  //Panel right for guess showed
+          $('.session_bottom_toolbars_guess').show(); //Toolbar buttoms for guess showed
+      }
+      //El token existe y todavia es valido
+      else{
+          $('.session_header_status').html( "<b> <i class='f7-icons'>person</i>  Jhon Moreira </b>" );
+          $('.session_panel_options_user').show(); //Panel right for user showed
+          $('.session_bottom_toolbars_user').show(); //Toolbar buttoms for user showed
+          $('.session_panel_options_guess').hide();  //Panel right for guess hidded
+          $('.session_bottom_toolbars_guess').hide(); //Toolbar buttoms for guess hidded
+      }
+    }
+    
 })
 
 //Vista de autenticacion 
