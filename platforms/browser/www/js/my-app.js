@@ -86,7 +86,7 @@ myApp.onPageInit('index' , function(page){
       }
     }
     
-})
+});
 
 //Vista de autenticacion 
 myApp.onPageInit('login' , function(page){
@@ -581,7 +581,7 @@ myApp.onPageInit('pedidos', function (page) {
          swiPedidos.slidePrev()
     });
 
-}) // End vista de pedidos
+}); // End vista de pedidos
 
 //Carga la vista para un nuevo registro
 myApp.onPageInit('register', function (page) {
@@ -641,7 +641,7 @@ myApp.onPageInit('register', function (page) {
       
     }); //End evento on submit del formulario
 
-}) // End vista de registro
+}); // End vista de registro
 
 
 //Carga la vista para manejar configuraciones
@@ -786,13 +786,13 @@ myApp.onPageInit('configuraciones', function (page) {
     }); //End evento on submit del formulario actualizar los datos del perfil
 
 
-}) // End vista de configuraciones
+}); // End vista de configuraciones
 
 
 //Carga la vista para manejar configuraciones
 myApp.onPageInit('premios', function (page) {
 
-//Carga obtiene la informacion del cliente logueado 
+ //Carga obtiene la informacion del cliente logueado 
     (function(){ 
 
         $.ajax({
@@ -858,68 +858,149 @@ myApp.onPageInit('premios', function (page) {
                 
     })();
 
- $(function(){
-    $('.roulette').find('img').hover(function(){
-      console.log($(this).height());
+    $(function(){
+        $('.roulette').find('img').hover(function(){
+          console.log($(this).height());
+        });
+        var appendLogMsg = function(msg) {
+          $('#msg')
+        .append('<p style="color: #2ba20d;font-weight: bolder;" >' + msg + '</p>')
+        .scrollTop(100000000);
+
+        }
+        var p = {
+          startCallback : function() {
+            appendLogMsg('Inicia la ruleta');
+            $('#speed, #duration').slider('disable');
+            $('#stopImageNumber').spinner('disable');
+            $('.start').attr('disabled', 'true');
+          },
+          slowDownCallback : function() {
+            appendLogMsg('Deteniendo...');
+          },
+          stopCallback : function($stopElm) {
+            appendLogMsg('La ruleta se ha detenido');
+            $('#speed, #duration').slider('enable');
+            $('#stopImageNumber').spinner('enable');
+            $('.start').removeAttr('disabled');
+
+            myApp.showPreloader('Procesando tu premio...');
+
+            // Envía la solicitud al servidor , serializa a json los datos
+            var posting = $.post( 'http://www.taqueriachaconpavas.com/api/cliente/canjeo/premios'+"?token="+storage.getItem('token'), 
+            { 'nombre_premio' : $stopElm[0]['title'] } )
+        
+              //Si la respuesta del servidor fue satisfactoria
+            .done(function( data ) {
+
+              myApp.hidePreloader(); //Esconde el preloader
+              myApp.alert('Has ganado el siguiente premio: '+$stopElm[0]['title'] , 'Felicidades!!!', function(){
+                mainView.router.refreshPage();
+              } );
+
+            })//end .done
+
+            //Si la solicitud al servidor fue erronea
+            .fail(function() {
+              //Muestra una alerta
+              myApp.hidePreloader(); //Esconde el preloader
+              myApp.alert('Ha ocurrido un error al contactar al servidor' , 'Sin conexión');
+            }); //End .fail
+          
+          }
+
+        }
+        var rouletter = $('div.roulette');
+        rouletter.roulette(p);  
+
+        $('.start').click(function(){
+          rouletter.roulette('start');  
+        });
+
     });
-    var appendLogMsg = function(msg) {
-      $('#msg')
-    .append('<p style="color: #2ba20d;font-weight: bolder;" >' + msg + '</p>')
-    .scrollTop(100000000);
 
-    }
-    var p = {
-      startCallback : function() {
-        appendLogMsg('Inicia la ruleta');
-        $('#speed, #duration').slider('disable');
-        $('#stopImageNumber').spinner('disable');
-        $('.start').attr('disabled', 'true');
-      },
-      slowDownCallback : function() {
-        appendLogMsg('Deteniendo...');
-      },
-      stopCallback : function($stopElm) {
-        appendLogMsg('La ruleta se ha detenido');
-        $('#speed, #duration').slider('enable');
-        $('#stopImageNumber').spinner('enable');
-        $('.start').removeAttr('disabled');
+}); // End vista de premios
 
-        myApp.showPreloader('Procesando tu premio...');
+myApp.onPageInit('invitado_menu', function (page) {
+    var form_pedidos = new FormData();
+    var menu_escogido = []; //Arreglo de objetos con los menus escogidos en este pedido
+    var pedido_info_entrega = [];// Arreglo de objetos con la informacion de entrega
+    var pedido_detalle_pago = [];// Arreglo de objetos con la informacion de pago
+    var pedido_total // Mantiene el total de pagar en este pedido
+    var cliente = null ; // Conserva los datos del cliente
+    
 
-        // Envía la solicitud al servidor , serializa a json los datos
-        var posting = $.post( 'http://www.taqueriachaconpavas.com/api/cliente/canjeo/premios'+"?token="+storage.getItem('token'), 
-        { 'nombre_premio' : $stopElm[0]['title'] } )
-     
-          //Si la respuesta del servidor fue satisfactoria
-         .done(function( data ) {
-
-           myApp.hidePreloader(); //Esconde el preloader
-           myApp.alert('Has ganado el siguiente premio: '+$stopElm[0]['title'] , 'Felicidades!!!', function(){
-            mainView.router.refreshPage();
-           } );
-
-         })//end .done
-
-         //Si la solicitud al servidor fue erronea
-        .fail(function() {
-          //Muestra una alerta
-          myApp.hidePreloader(); //Esconde el preloader
-          myApp.alert('Ha ocurrido un error al contactar al servidor' , 'Sin conexión');
-        }); //End .fail
-      
-      }
-
-    }
-    var rouletter = $('div.roulette');
-    rouletter.roulette(p);  
-
-    $('.start').click(function(){
-      rouletter.roulette('start');  
+    //Inicializador del swipper
+    var swiPedidos = new Swiper('.swip-pedidos', {
+        pagination: '.swiper-pagination',
+        effect: 'fade',
+        speed : 1000,
+        onlyExternal: true,
+        autoHeight : true,
     });
 
+    //Carga obtiene al cliente logueado y carga los select con el menu disponible
+    (function(){ 
+
+        $.ajax({
+          url: "http://taqueriachacon.dev/api/cliente/menus/invitados",
+          async: false,
+        })
+
+         .done(function(data) {
+           
+            var menus = data.menu;
+            cliente = data.cliente;
+
+            myApp.smartSelectAddOption('#selector_comidas',"<option style='display=none;' selected='' value=''></option>");
+            myApp.smartSelectAddOption('#selector_bebidas',"<option style='display=none;' selected='' value=''></option>");
+            myApp.smartSelectAddOption('#selector_postres',"<option style='display=none;' selected='' value=''></option>");
+
+            for ( i in menus) {       
+
+                           if (menus[i].categoria == 'Comidas') {
+                                myApp.smartSelectAddOption('#selector_comidas', 
+                                "<option"
+                                +" data-option-class=img-small lazy lazy-fadeIn"
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
+                                +"₡"+menus[i].precio+" " +menus[i].nombre
+                                +"</option>");
+                            }
+                           if (menus[i].categoria == 'Bebidas') {
+
+                                myApp.smartSelectAddOption('#selector_bebidas', 
+                                "<option"
+                                +" data-option-class=img-small lazy lazy-fadeIn"
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
+                                +"₡"+menus[i].precio+" " + menus[i].nombre
+                                +"</option>");
+                            }
+                            if (menus[i].categoria == 'Postres') {
+
+                                myApp.smartSelectAddOption('#selector_postres', 
+                                "<option"
+                                +" data-option-class=img-small lazy lazy-fadeIn"
+                                +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
+                                +" title="+menus[i].precio
+                                +" value="+menus[i].id+">"
+                                +"₡"+menus[i].precio+" " +menus[i].nombre
+                                +"</option>");
+                            }
+  
+            } // End for
+           
+         })
+
+         .fail(function() {
+           myApp.alert('Error al cargar la informacion del usuario' , 'Fallo conexión');
+         });
+                
+    })();
 });
-
-}) // End vista de configuraciones
 
 
 /**

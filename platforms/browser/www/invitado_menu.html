@@ -1,0 +1,166 @@
+<!-- No es necesario cargar todo , la plantilla es dinamica , se hace un parser con ajax. -->
+
+<div class="pages">
+
+    <div data-page="invitado_menu" class="page">
+	    <style type="text/css" media="screen">
+			.img-small img{
+				 height: 40px;
+			}
+			.swiper-container {
+				   width: 100%;
+       			   height: 100%;
+			}
+			.swiper-slide {
+				  background-position: center;
+                  background-size: cover;
+			}
+		    .demo-card-header-pic .card-header {
+			    height: 40vw;
+			    background-size: cover;
+			    background-position: center;
+			 }
+		</style>
+        <div class="page-content">
+            <div class="content-block">
+            	<h2 style="font-family: cursive;font-size: x-large;color: #e7463b;text-shadow: 0 0 5px #dbea1f;text-align: center;">Nuestro delicioso menú</h2>
+      			<div class="swiper-container swip-pedidos">
+				    <div class="swiper-wrapper">
+				    
+                     <!--Step 1 -->
+				      <div class="swiper-slide">
+						    
+						    <div class="content-block-inner">
+						    <p style="text-align: left;font-size: large">¿Te gusta algo de lo que vez? <b style="color: #f44336;"><a href='login.html'>inicia sesión y pidenos!</a></b></p>
+						    </div>
+
+
+                            <div class="row">
+                                <div class="col-50">
+                                        <div class="content-block-title">Nuestras Comidas</div>
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-content-inner">
+
+                                                    <div class="row">
+                                                        <div class="col-100">
+                                                            <div class="list-block">
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="#" class="item-link smart-select" data-back-on-select="false" data-searchbar="true" data-searchbar-placeholder="Busque su comida" data-open-in="popup" data-page-title="Menú de comidas" data-back-text="Atrás">
+
+                                                                            <select id="selector_comidas" name="comidas" >
+                                                                            </select>
+
+                                                                            <div class="item-content">
+                                                                            <div class="item-inner">
+                                                                                <div class="item-title"><i class="f7-icons">layers</i></div>
+                                                                            </div>
+                                                                            </div>
+
+                                                                            </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>     
+                                </div> <!-- End col-50 -->
+
+                                <div class="col-50">
+                                        <div class="content-block-title">Nuestras Bebidas</div>
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-content-inner">
+
+                                                    <div class="row">
+                                                        <div class="col-100">
+                                                            <div class="list-block">
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="#" class="item-link smart-select" data-back-on-select="false" data-searchbar="true" data-searchbar-placeholder="Busque su bebida" data-open-in="popup" data-page-title="Menú de bebidas" data-back-text="Atrás">
+
+                                                                            <select id="selector_bebidas" name="bebidas" >
+                                                                            </select>
+
+                                                                            <div class="item-content">
+                                                                            <div class="item-inner">
+                                                                                <div class="item-title"><i class="f7-icons">layers</i></div>
+                                                                            </div>
+                                                                            </div>
+
+                                                                            </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div> 
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div> <!-- End col-50 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-50">
+                                        	<div class="content-block-title">Nuestros Postres</div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                        <div class="card-content-inner">
+
+                                                            <div class="row">
+                                                                <div class="col-100">
+                                                                    <div class="list-block">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a href="#" class="item-link smart-select" data-back-on-select="false" data-searchbar="true" data-searchbar-placeholder="Busque su postre" data-open-in="popup" data-page-title="Menú de postres" data-back-text="Atrás">
+
+                                                                                    <select id="selector_postres" name="postres" >
+                                                                                    </select>
+
+                                                                                    <div class="item-content">
+                                                                                    <div class="item-inner">
+                                                                                        <div class="item-title"><i class="f7-icons">layers</i></div>
+                                                                                    </div>
+                                                                                    </div>
+
+                                                                                    </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div> 
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                </div>
+
+                                <div class="col-50">
+                                    <img src="img/chavo_menu_invitados.png" alt="chavo" style="width: 100%;height: 100%;">
+                                </div>
+
+                            </div>
+						    
+
+			                <br>
+
+							<div class="row">
+							  <div class="col-50">
+							  	<a href="#" style="float: left;" class="button  button-fill button-raised button-green back link"><i style="padding: 5px;" class="f7-icons">arrow_left_fill</i> Atras</a>
+							  </div>
+							</div>  
+
+				      </div>
+				     <!-- End step 1 -->
+				  
+				</div> <!--End Swipper -->
+
+ 
+            </div> <!-- End content-block -->
+        </div> <!-- End page-content -->
+    </div> <!-- End data page -->
+</div> <!-- End div page -->
