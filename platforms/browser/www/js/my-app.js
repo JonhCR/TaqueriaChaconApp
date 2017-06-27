@@ -78,7 +78,7 @@ myApp.onPageInit('index' , function(page){
       }
       //El token existe y todavia es valido
       else{
-          $('.session_header_status').html( "<b> <i class='f7-icons'>person</i>  Jhon Moreira </b>" );
+          $('.session_header_status').html( "<b> <i class='f7-icons'>person</i>  Cliente Conectado </b>" );
           $('.session_panel_options_user').show(); //Panel right for user showed
           $('.session_bottom_toolbars_user').show(); //Toolbar buttoms for user showed
           $('.session_panel_options_guess').hide();  //Panel right for guess hidded
