@@ -943,7 +943,7 @@ myApp.onPageInit('invitado_menu', function (page) {
     (function(){ 
 
         $.ajax({
-          url: "http://taqueriachacon.dev/api/cliente/menus/invitados",
+          url: "http://www.taqueriachaconpavas.com/api/cliente/menus/invitados",
           async: false,
         })
 
