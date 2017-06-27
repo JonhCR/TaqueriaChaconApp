@@ -167,7 +167,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
                            if (menus[i].categoria == 'Bebidas') {
@@ -178,7 +178,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
                             if (menus[i].categoria == 'Postres') {
@@ -189,7 +189,7 @@ myApp.onPageInit('pedidos', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
   
@@ -965,7 +965,7 @@ myApp.onPageInit('invitado_menu', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +"₡"+menus[i].precio+" " +menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
                            if (menus[i].categoria == 'Bebidas') {
@@ -976,7 +976,7 @@ myApp.onPageInit('invitado_menu', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +"₡"+menus[i].precio+" " + menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
                             if (menus[i].categoria == 'Postres') {
@@ -987,7 +987,7 @@ myApp.onPageInit('invitado_menu', function (page) {
                                 +" data-option-image=http://www.taqueriachaconpavas.com/"+ menus[i].foto
                                 +" title="+menus[i].precio
                                 +" value="+menus[i].id+">"
-                                +"₡"+menus[i].precio+" " +menus[i].nombre
+                                +menus[i].nombre+" ₡"+menus[i].precio 
                                 +"</option>");
                             }
   
