@@ -25,12 +25,32 @@ $$(document).on('deviceready', function() {
 
     //Si el dispositivo no tiene un token de autenticacion
     if(typeof token == null || !token || token == 'null' ){
-        //  mainView.router.loadPage("login.html");
+          $('#session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('#session_bottom_toolbars').html( " <a href='login.html' class='link'><i class='f7-icons'>login</i>&nbsp;<p>Iniciar Sesion</p></a>"+
+                                              " <a href='menu.html' class='link'><i class='f7-icons'>collection</i>&nbsp;<p>Menu</p></a>"+
+                                              " <a href='login.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a> " );
+          $('.session_panel_options_guess').show();
+          $('.session_panel_options_user').hide();
     }
     else{
       //Determina si el token aun sigue siendo valido en el servidor
       if( !userAuthenticated() ){
-         // mainView.router.loadPage("login.html");
+
+          $('#session_header_status').html( "<i class='f7-icons'>close</i>  No conectado" );
+          $('#session_bottom_toolbars').html( " <a href='login.html' class='link'><i class='f7-icons'>login</i>&nbsp;<p>Inicio</p></a>"+
+                                              " <a href='menu.html' class='link'><i class='f7-icons'>collection</i>&nbsp;<p>Menu</p></a>"+
+                                              " <a href='login.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a> " );
+          $('.session_panel_options_guess').show();
+          $('.session_panel_options_user').hide();
+      }
+      //El token existe y todavia es valido
+      else{
+          $('#session_header_status').html( "<b> <i class='f7-icons'>person</i>  Jhon Moreira </b>" );
+          $('#session_bottom_toolbars').html( " <a href='index.html' class='link'><i class='f7-icons'>home</i>&nbsp;<p>Inicio</p></a>"+
+                                              " <a href='pedidos.html' class='link'><i class='f7-icons'>bag</i>&nbsp;<p>Pedido</p></a>"+
+                                              " <a href='premios.html' class='link'><i class='f7-icons'>heart</i>&nbsp;<p>Premios</p></a> " );
+          $('.session_panel_options_user').show();
+          $('.session_panel_options_guess').hide();
       }
     }
 
@@ -38,6 +58,7 @@ $$(document).on('deviceready', function() {
 });
 
 myApp.onPageInit('index' , function(page){
+
 })
 
 //Vista de autenticacion 
