@@ -25,12 +25,12 @@ $$(document).on('deviceready', function() {
 
     //Si el dispositivo no tiene un token de autenticacion
     if(typeof token == null || !token || token == 'null' ){
-          mainView.router.loadPage("login.html");
+        //  mainView.router.loadPage("login.html");
     }
     else{
       //Determina si el token aun sigue siendo valido en el servidor
       if( !userAuthenticated() ){
-          mainView.router.loadPage("login.html");
+         // mainView.router.loadPage("login.html");
       }
     }
 

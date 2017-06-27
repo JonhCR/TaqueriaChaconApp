@@ -1,0 +1,68 @@
+<!-- No es necesario cargar todo , la plantilla es dinamica , se hace un parser con ajax. -->
+
+<div class="pages">
+
+    <div data-page="login" class="page no-navbar no-toolbar no-swipeback">
+  
+        <div class="page-content">
+            <div class="content-block">
+
+                <!-- Login Screen -->
+                <div class="login-screen modal-in">
+                             
+                                    <!-- page-content has additional login-screen content -->
+                                    <div class="page-content login-screen-content">
+                                        <br><br>
+                                        <div class="row">
+                                              <div class="col-10"> </div>
+                                              <div class="col-50">
+                                                <img src="img/logo_largo.png" alt="logo" style="    width: 100%;margin-top: 15px;margin-bottom: 10px;height: 130px;">
+                                              </div>
+                                              <div class="col-10"> </div>
+                                       </div>
+
+                                      <!-- Login form -->
+                                      <form action="http://www.taqueriachaconpavas.com/api/cliente/loguear" id="logearClienteForm" method="post" accept-charset="utf-8" >
+                                        <div class="list-block">
+                                          <ul>
+                                            <li class="item-content">
+                                              <div class="item-inner">
+                                                <div class="item-title label">Correo</div>
+                                                <div class="item-input">
+                                                  <input required="" type="email" name="email" placeholder="Correo electronico">
+                                                </div>
+                                              </div>
+                                            </li>
+                                            <li class="item-content">
+                                              <div class="item-inner">
+                                                <div class="item-title label">Contraseña</div>
+                                                <div class="item-input">
+                                                  <input required="" type="password" name="password" placeholder="Contraseña">
+                                                </div>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="list-block">
+                                            <div class="row">
+                                            <div class="col-5"></div>
+                                              <div class="col-40">
+                                                <a style="width:100%;" href="register.html" class="button button-fill button-raised ">Registrarme</a>
+                                              </div>
+                                              <div class="col-40">
+                                                <button style="width:100%;" type="submit" class="button button-fill button-raised ">Ingresar</button>
+                                              </div>
+                                              <div class="col-5"></div>
+                                            </div>
+                                          <div class="list-block-label">Gracias por preferirnos</div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  
+                </div>
+                <!-- End Login Screen -->
+
+            </div> <!-- End content-block -->
+        </div> <!-- End page-content -->
+    </div> <!-- End data page -->
+</div> <!-- End div page -->
