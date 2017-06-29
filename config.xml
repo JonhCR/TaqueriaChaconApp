@@ -1,5 +1,5 @@
-<?xml version='1.3' encoding='utf-8'?>
-<widget id="com.solutionscrc.taqueriachaconapp" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<?xml version='1.4' encoding='utf-8'?>
+<widget id="com.solutionscrc.taqueriachaconapp" version="1.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Taquería Chacón</name>
     <description>
         Aplicación para efectuar pedidos y canjear premios de Taquería Chacón, Pavas Costa Rica
